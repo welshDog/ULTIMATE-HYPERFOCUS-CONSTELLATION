@@ -1,0 +1,89 @@
+---
+name: ✨ Feature Request
+about: Suggest an idea for this project
+title: '[FEATURE] '
+labels: ['enhancement', 'needs-discussion']
+assignees: ''
+---
+
+## ✨ **Feature Summary**
+A clear and concise description of the feature you'd like to see.
+
+## 💡 **Motivation**
+**Is your feature request related to a problem? Please describe.**
+A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
+
+**What would this feature help you accomplish?**
+Describe your use case and how this feature would improve your experience.
+
+## 🎯 **Detailed Description**
+**Describe the solution you'd like**
+A clear and concise description of what you want to happen.
+
+**Describe alternatives you've considered**
+A clear and concise description of any alternative solutions or features you've considered.
+
+## 🧠 **Neurodivergent Benefits**
+How would this feature specifically help neurodivergent users?
+- [ ] Improves hyperfocus support
+- [ ] Better for ADHD users
+- [ ] Helps users with dyslexia
+- [ ] Benefits autistic users
+- [ ] Improves executive function support
+- [ ] Reduces cognitive load
+- [ ] Other: ___________
+
+## ♿ **Accessibility Considerations**
+- [ ] This feature should work with screen readers
+- [ ] This feature needs keyboard navigation support
+- [ ] This feature should respect motion preferences
+- [ ] This feature needs high contrast support
+- [ ] This feature affects focus management
+- [ ] Other accessibility needs: ___________
+
+## 🎮 **User Experience**
+**How should users interact with this feature?**
+- Desktop users: 
+- Mobile users:
+- Keyboard users:
+- Screen reader users:
+
+**Where should this feature be located in the interface?**
+Describe the ideal placement and integration.
+
+## 📊 **Success Metrics**
+How would we know this feature is successful?
+- [ ] User engagement increases
+- [ ] Accessibility improves
+- [ ] Performance remains good
+- [ ] Hyperfocus sessions improve
+- [ ] Other: ___________
+
+## 🛠️ **Implementation Ideas**
+If you have ideas about implementation, share them here:
+- Technical approach:
+- UI/UX considerations:
+- Potential challenges:
+
+## 📱 **Platform Support**
+Which platforms should this feature support?
+- [ ] Desktop browsers
+- [ ] Mobile browsers  
+- [ ] Tablet browsers
+- [ ] All platforms
+
+## 🔗 **Related Issues/Features**
+Link to any related issues or features:
+- Related to #
+- Depends on #
+- Blocks #
+
+## 📸 **Mockups/Examples**
+If you have mockups, sketches, or examples from other apps, please share them!
+
+## 🌟 **Additional Context**
+Add any other context, screenshots, or examples about the feature request here.
+
+---
+
+**Thank you for helping us make the Ultimate Hyperfocus Constellation even better! Your ideas help create a more inclusive and powerful experience for all developers.** 🚀

@@ -1,0 +1,71 @@
+---
+name: 🐛 Bug Report
+about: Create a report to help us improve accessibility and functionality
+title: '[BUG] '
+labels: ['bug', 'needs-triage']
+assignees: ''
+---
+
+## 🐛 **Bug Description**
+A clear and concise description of what the bug is.
+
+## 🔄 **Steps to Reproduce**
+Steps to reproduce the behavior:
+1. Go to '...'
+2. Click on '....'
+3. Scroll down to '....'
+4. See error
+
+## ✅ **Expected Behavior**
+A clear and concise description of what you expected to happen.
+
+## ❌ **Actual Behavior**
+A clear and concise description of what actually happened.
+
+## 📸 **Screenshots**
+If applicable, add screenshots to help explain your problem.
+
+## 🖥️ **Environment Information**
+- **OS**: [e.g. Windows 10, macOS Big Sur, Ubuntu 20.04]
+- **Browser**: [e.g. Chrome 96, Firefox 94, Safari 15]
+- **Screen Resolution**: [e.g. 1920x1080, 2560x1440]
+- **Device Type**: [e.g. Desktop, Laptop, Mobile, Tablet]
+
+## ♿ **Accessibility Impact**
+- [ ] This affects keyboard navigation
+- [ ] This affects screen reader users  
+- [ ] This affects color contrast/visibility
+- [ ] This affects users with motion sensitivity
+- [ ] This affects focus management
+- [ ] This doesn't appear to affect accessibility
+
+**Assistive Technology Used** (if applicable):
+- [ ] Screen reader (which one?)
+- [ ] Voice control
+- [ ] Keyboard-only navigation
+- [ ] High contrast mode
+- [ ] Other: ___________
+
+## 🧠 **Neurodivergent Impact**
+- [ ] This affects hyperfocus sessions
+- [ ] This affects users with ADHD
+- [ ] This affects users with dyslexia
+- [ ] This affects users with autism
+- [ ] This affects concentration/focus
+- [ ] This doesn't appear to affect neurodivergent users
+
+## 📱 **Mobile/Touch Impact**
+- [ ] This affects mobile users
+- [ ] This affects touch interactions
+- [ ] This affects tablet users
+- [ ] This doesn't affect mobile/touch
+
+## 🔍 **Additional Context**
+Add any other context about the problem here.
+
+## 🚀 **Possible Solution**
+If you have ideas on how to fix this, please share them!
+
+---
+
+**Thank you for helping us improve the Ultimate Hyperfocus Constellation! Your report helps make the experience better for all neurodivergent developers.** 🌟

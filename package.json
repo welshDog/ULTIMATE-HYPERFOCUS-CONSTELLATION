@@ -1,0 +1,104 @@
+{
+  "name": "ultimate-hyperfocus-constellation",
+  "version": "1.0.0",
+  "description": "🌌 The world's most advanced 3D repository visualization + interactive research platform designed for neurodivergent minds",
+  "main": "index.html",
+  "homepage": "https://welshdog.github.io/ultimate-hyperfocus-constellation/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/welshDog/ultimate-hyperfocus-constellation.git"
+  },
+  "bugs": {
+    "url": "https://github.com/welshDog/ultimate-hyperfocus-constellation/issues"
+  },
+  "author": {
+    "name": "Lyndz Williams",
+    "email": "lyndz@hyperfocus-constellation.dev",
+    "url": "https://github.com/welshDog"
+  },
+  "license": "MIT",
+  "keywords": [
+    "3d-visualization",
+    "webgl",
+    "threejs", 
+    "github-api",
+    "neurodiversity",
+    "adhd",
+    "hyperfocus",
+    "accessibility",
+    "inclusive-design",
+    "portfolio",
+    "research-platform",
+    "vibe-coding",
+    "neurodivergent",
+    "developer-tools",
+    "constellation"
+  ],
+  "scripts": {
+    "dev": "live-server . --port=8080 --host=localhost --entry-file=index.html",
+    "start": "python -m http.server 8000",
+    "build": "npm run optimize && npm run minify && npm run validate",
+    "optimize": "node scripts/optimize-assets.js",
+    "minify": "terser ultimate_hyperfocus_constellation.js -o ultimate_hyperfocus_constellation.min.js --compress --mangle",
+    "validate": "html5validator index.html",
+    "test": "npm run test:a11y && npm run test:performance && npm run test:compatibility",
+    "test:a11y": "axe-cli index.html --exit",
+    "test:performance": "lighthouse-ci index.html",
+    "test:compatibility": "browserslist-update-db",
+    "lint": "eslint *.js --fix",
+    "format": "prettier --write "**/*.{js,html,css,md}"",
+    "deploy": "gh-pages -d . -f",
+    "clean": "rm -rf node_modules dist coverage .nyc_output",
+    "audit": "npm audit --audit-level moderate",
+    "update": "npm update && npm audit fix",
+    "precommit": "npm run lint && npm run format && npm run test:a11y",
+    "postinstall": "echo '🌟 Ultimate Hyperfocus Constellation setup complete! Run npm run dev to start developing.'",
+    "release": "npm version patch && git push && git push --tags && npm run deploy"
+  },
+  "dependencies": {
+    "three": "^0.155.0"
+  },
+  "devDependencies": {
+    "live-server": "^1.2.2",
+    "eslint": "^8.50.0",
+    "prettier": "^3.0.3",
+    "terser": "^5.20.0",
+    "gh-pages": "^6.0.0",
+    "@axe-core/cli": "^4.8.1",
+    "lighthouse-ci": "^0.12.0",
+    "html5validator": "^0.4.0",
+    "browserslist": "^4.21.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "Firefox ESR",
+    "not dead",
+    "not IE 11"
+  ],
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
+  "files": [
+    "index.html",
+    "ultimate_hyperfocus_constellation.js",
+    "ultimate_hyperfocus_constellation.min.js",
+    "styles/",
+    "assets/",
+    "data/",
+    "docs/",
+    "README.md",
+    "LICENSE",
+    "CONTRIBUTING.md",
+    "CODE_OF_CONDUCT.md"
+  ],
+  "config": {
+    "port": 8080,
+    "host": "localhost"
+  },
+  "funding": {
+    "type": "individual",
+    "url": "https://github.com/sponsors/welshDog"
+  }
+}

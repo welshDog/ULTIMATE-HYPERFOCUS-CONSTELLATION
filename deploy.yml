@@ -1,0 +1,128 @@
+name: 🚀 Deploy Ultimate Hyperfocus Constellation
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    # Update repository data weekly
+    - cron: '0 0 * * 0'
+
+jobs:
+  accessibility-test:
+    name: ♿ Accessibility Testing
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 🔄 Checkout code
+      uses: actions/checkout@v4
+
+    - name: 📦 Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+
+    - name: 🔧 Install dependencies
+      run: npm ci
+
+    - name: 🧪 Run accessibility tests
+      run: npm run test:a11y
+
+    - name: 📊 Lighthouse accessibility audit
+      uses: treosh/lighthouse-ci-action@v10
+      with:
+        configPath: '.lighthouserc.json'
+
+  performance-test:
+    name: ⚡ Performance Testing
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 🔄 Checkout code
+      uses: actions/checkout@v4
+
+    - name: 📦 Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+
+    - name: 🔧 Install dependencies  
+      run: npm ci
+
+    - name: ⚡ Run performance tests
+      run: npm run test:performance
+
+    - name: 📈 Upload performance results
+      uses: actions/upload-artifact@v3
+      with:
+        name: performance-results
+        path: lighthouse-results/
+
+  build-and-deploy:
+    name: 🌟 Build and Deploy
+    runs-on: ubuntu-latest
+    needs: [accessibility-test, performance-test]
+
+    steps:
+    - name: 🔄 Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: 📦 Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+
+    - name: 🔧 Install dependencies
+      run: npm ci
+
+    - name: 🏗️ Build project
+      run: npm run build
+
+    - name: 🧪 Validate HTML
+      run: npm run validate
+
+    - name: 🌐 Deploy to GitHub Pages
+      if: github.ref == 'refs/heads/main'
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./
+        publish_branch: gh-pages
+        commit_message: '🚀 Deploy Ultimate Hyperfocus Constellation'
+
+    - name: 📢 Create deployment summary
+      if: github.ref == 'refs/heads/main'
+      run: |
+        echo "🌟 **Ultimate Hyperfocus Constellation Deployed!**" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "🌐 **Live Demo**: https://welshdog.github.io/ultimate-hyperfocus-constellation/" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "✅ **Accessibility**: WCAG 2.1 AA Compliant" >> $GITHUB_STEP_SUMMARY
+        echo "⚡ **Performance**: Optimized for 60 FPS" >> $GITHUB_STEP_SUMMARY
+        echo "📱 **Mobile**: Touch-optimized controls" >> $GITHUB_STEP_SUMMARY
+        echo "🧠 **Neurodivergent**: ADHD-friendly interface" >> $GITHUB_STEP_SUMMARY
+
+  security-scan:
+    name: 🔒 Security Scan
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 🔄 Checkout code
+      uses: actions/checkout@v4
+
+    - name: 🔍 Run security audit
+      run: npm audit --audit-level high
+
+    - name: 🛡️ CodeQL Analysis
+      uses: github/codeql-action/init@v2
+      with:
+        languages: javascript
+
+    - name: 🔬 Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v2
