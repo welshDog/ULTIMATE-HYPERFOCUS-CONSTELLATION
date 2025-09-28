@@ -9,7 +9,7 @@
 
 ---
 
-## 🚀 **[LIVE DEMO - Experience the Revolution!](https://welshdog.github.io/ultimate-hyperfocus-constellation/)**
+## 🚀 **[LIVE DEMO - Experience the Revolution!](https://welshdog.github.io/ULTIMATE-HYPERFOCUS-CONSTELLATION/)**
 
 This isn't just another portfolio site or research platform - it's a **revolutionary dual-mode 3D experience** that combines repository visualization with interactive academic research, proving that neurodivergent minds build extraordinary solutions.
 
