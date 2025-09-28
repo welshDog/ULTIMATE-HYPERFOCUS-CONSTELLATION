@@ -1,5 +1,4 @@
-# Create service worker for PWA functionality
-service_worker = '''/**
+/**
  * 🔧 Service Worker for Ultimate Hyperfocus Constellation
  * Provides offline functionality, caching, and performance optimization
  */
@@ -38,7 +37,7 @@ const CACHE_FIRST = [
  */
 self.addEventListener('install', (event) => {
     console.log('🔧 Service Worker installing...');
-    
+
     event.waitUntil(
         Promise.all([
             caches.open(STATIC_CACHE).then((cache) => {
@@ -55,7 +54,7 @@ self.addEventListener('install', (event) => {
  */
 self.addEventListener('activate', (event) => {
     console.log('⚡ Service Worker activating...');
-    
+
     event.waitUntil(
         Promise.all([
             // Clean up old caches
@@ -74,7 +73,7 @@ self.addEventListener('activate', (event) => {
             self.clients.claim() // Take control immediately
         ])
     );
-    
+
     // Notify all clients about the activation
     self.clients.matchAll().then((clients) => {
         clients.forEach((client) => {
@@ -92,10 +91,10 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
     const { request } = event;
     const url = new URL(request.url);
-    
+
     // Skip non-GET requests
     if (request.method !== 'GET') return;
-    
+
     // Handle different types of requests
     if (isGitHubAPIRequest(url)) {
         event.respondWith(handleGitHubAPI(request));
@@ -116,11 +115,11 @@ self.addEventListener('fetch', (event) => {
 async function handleGitHubAPI(request) {
     const cache = await caches.open(GITHUB_API_CACHE);
     const cacheKey = request.url;
-    
+
     try {
         // Try to fetch fresh data
         const response = await fetch(request);
-        
+
         if (response.ok) {
             // Cache successful responses for 5 minutes
             const responseClone = response.clone();
@@ -133,7 +132,7 @@ async function handleGitHubAPI(request) {
                     'sw-cache-expires': (Date.now() + 5 * 60 * 1000).toString() // 5 minutes
                 }
             });
-            
+
             cache.put(cacheKey, cacheResponse);
             return response;
         } else {
@@ -141,13 +140,13 @@ async function handleGitHubAPI(request) {
         }
     } catch (error) {
         console.log('🔄 Network failed, trying cache for:', request.url);
-        
+
         // Try cache as fallback
         const cachedResponse = await cache.match(cacheKey);
-        
+
         if (cachedResponse) {
             const cacheExpires = cachedResponse.headers.get('sw-cache-expires');
-            
+
             if (cacheExpires && Date.now() < parseInt(cacheExpires)) {
                 console.log('📦 Serving cached API response');
                 return cachedResponse;
@@ -155,7 +154,7 @@ async function handleGitHubAPI(request) {
                 console.log('⏰ Cached API response expired');
             }
         }
-        
+
         // Return offline response
         return new Response(
             JSON.stringify({
@@ -178,19 +177,19 @@ async function handleGitHubAPI(request) {
 async function handleStaticAsset(request) {
     const cache = await caches.open(STATIC_CACHE);
     const cachedResponse = await cache.match(request);
-    
+
     if (cachedResponse) {
         console.log('📦 Serving cached static asset:', request.url);
         return cachedResponse;
     }
-    
+
     try {
         const response = await fetch(request);
-        
+
         if (response.ok) {
             cache.put(request, response.clone());
         }
-        
+
         return response;
     } catch (error) {
         console.log('❌ Failed to fetch static asset:', request.url);
@@ -204,10 +203,10 @@ async function handleStaticAsset(request) {
 async function handleCDNRequest(request) {
     const cache = await caches.open(STATIC_CACHE);
     const cachedResponse = await cache.match(request);
-    
+
     if (cachedResponse) {
         console.log('📦 Serving cached CDN asset:', request.url);
-        
+
         // Optionally fetch fresh version in background
         fetch(request).then((response) => {
             if (response.ok) {
@@ -216,17 +215,17 @@ async function handleCDNRequest(request) {
         }).catch(() => {
             // Ignore background fetch errors
         });
-        
+
         return cachedResponse;
     }
-    
+
     try {
         const response = await fetch(request);
-        
+
         if (response.ok) {
             cache.put(request, response.clone());
         }
-        
+
         return response;
     } catch (error) {
         console.log('❌ Failed to fetch CDN asset:', request.url);
@@ -239,23 +238,23 @@ async function handleCDNRequest(request) {
  */
 async function handleAppRequest(request) {
     const cache = await caches.open(STATIC_CACHE);
-    
+
     // Always try to serve the main app shell
     const appShell = await cache.match('/ULTIMATE-HYPERFOCUS-CONSTELLATION/index.html');
-    
+
     if (appShell) {
         console.log('📦 Serving app shell from cache');
         return appShell;
     }
-    
+
     // Fallback to network
     try {
         const response = await fetch('/ULTIMATE-HYPERFOCUS-CONSTELLATION/index.html');
-        
+
         if (response.ok) {
             cache.put('/ULTIMATE-HYPERFOCUS-CONSTELLATION/index.html', response.clone());
         }
-        
+
         return response;
     } catch (error) {
         // Fallback offline page
@@ -323,22 +322,22 @@ async function handleAppRequest(request) {
  */
 async function handleGenericRequest(request) {
     const cache = await caches.open(DYNAMIC_CACHE);
-    
+
     try {
         const response = await fetch(request);
-        
+
         if (response.ok) {
             cache.put(request, response.clone());
         }
-        
+
         return response;
     } catch (error) {
         const cachedResponse = await cache.match(request);
-        
+
         if (cachedResponse) {
             return cachedResponse;
         }
-        
+
         return new Response('Resource unavailable offline', { status: 404 });
     }
 }
@@ -375,7 +374,7 @@ function isAppRequest(url) {
  */
 self.addEventListener('sync', (event) => {
     console.log('🔄 Background sync triggered:', event.tag);
-    
+
     if (event.tag === 'github-data-sync') {
         event.waitUntil(syncGitHubData());
     } else if (event.tag === 'analytics-sync') {
@@ -389,13 +388,13 @@ self.addEventListener('sync', (event) => {
 async function syncGitHubData() {
     try {
         console.log('🔄 Syncing GitHub data...');
-        
+
         // Clear old GitHub API cache
         const cache = await caches.open(GITHUB_API_CACHE);
         const keys = await cache.keys();
-        
+
         await Promise.all(keys.map(key => cache.delete(key)));
-        
+
         // Notify the app to refresh data
         const clients = await self.clients.matchAll();
         clients.forEach(client => {
@@ -404,7 +403,7 @@ async function syncGitHubData() {
                 message: 'GitHub data refreshed from network'
             });
         });
-        
+
         console.log('✅ GitHub data sync completed');
     } catch (error) {
         console.error('❌ GitHub data sync failed:', error);
@@ -419,7 +418,7 @@ async function syncAnalytics() {
         // Get queued analytics events from IndexedDB
         // This would integrate with your analytics system
         console.log('📊 Syncing analytics data...');
-        
+
         // Implementation would depend on analytics provider
         // For now, just log the sync attempt
         console.log('✅ Analytics sync completed');
@@ -433,9 +432,9 @@ async function syncAnalytics() {
  */
 self.addEventListener('push', (event) => {
     if (!event.data) return;
-    
+
     const data = event.data.json();
-    
+
     const options = {
         body: data.body || 'New update available in your constellation!',
         icon: '/ULTIMATE-HYPERFOCUS-CONSTELLATION/icons/icon-192x192.png',
@@ -459,7 +458,7 @@ self.addEventListener('push', (event) => {
             action: data.action
         }
     };
-    
+
     event.waitUntil(
         self.registration.showNotification(data.title || 'Hyperfocus Constellation', options)
     );
@@ -470,17 +469,17 @@ self.addEventListener('push', (event) => {
  */
 self.addEventListener('notificationclick', (event) => {
     event.notification.close();
-    
+
     const action = event.action;
     const data = event.notification.data;
-    
+
     event.waitUntil(
         self.clients.matchAll({ type: 'window' }).then((clients) => {
             // Check if app is already open
             const existingClient = clients.find(client => 
                 client.url.includes('ULTIMATE-HYPERFOCUS-CONSTELLATION')
             );
-            
+
             if (existingClient) {
                 // Focus existing window and send action
                 existingClient.focus();
@@ -492,13 +491,13 @@ self.addEventListener('notificationclick', (event) => {
             } else {
                 // Open new window
                 let url = data?.url || '/ULTIMATE-HYPERFOCUS-CONSTELLATION/';
-                
+
                 if (action === 'focus') {
                     url += '?action=focus';
                 } else if (action === 'research') {
                     url += '?action=research';
                 }
-                
+
                 self.clients.openWindow(url);
             }
         })
@@ -510,23 +509,23 @@ self.addEventListener('notificationclick', (event) => {
  */
 self.addEventListener('message', (event) => {
     const { type, data } = event.data;
-    
+
     switch (type) {
         case 'SKIP_WAITING':
             self.skipWaiting();
             break;
-            
+
         case 'REGISTER_SYNC':
             // Register background sync
             self.registration.sync.register(data.tag);
             break;
-            
+
         case 'CLEAR_CACHE':
             clearAllCaches().then(() => {
                 event.ports[0].postMessage({ success: true });
             });
             break;
-            
+
         case 'CACHE_STATUS':
             getCacheStatus().then((status) => {
                 event.ports[0].postMessage(status);
@@ -550,7 +549,7 @@ async function clearAllCaches() {
 async function getCacheStatus() {
     const cacheNames = await caches.keys();
     const status = {};
-    
+
     for (const cacheName of cacheNames) {
         const cache = await caches.open(cacheName);
         const keys = await cache.keys();
@@ -559,7 +558,7 @@ async function getCacheStatus() {
             size: 'Unknown' // Would need to calculate actual size
         };
     }
-    
+
     return {
         caches: status,
         totalCaches: cacheNames.length
@@ -580,40 +579,21 @@ self.addEventListener('periodicsync', (event) => {
  */
 async function performCacheCleanup() {
     console.log('🧹 Performing cache cleanup...');
-    
+
     const cache = await caches.open(GITHUB_API_CACHE);
     const keys = await cache.keys();
-    
+
     for (const request of keys) {
         const response = await cache.match(request);
         const cacheExpires = response.headers.get('sw-cache-expires');
-        
+
         if (cacheExpires && Date.now() > parseInt(cacheExpires)) {
             await cache.delete(request);
             console.log('🗑️ Cleaned expired cache entry:', request.url);
         }
     }
-    
+
     console.log('✅ Cache cleanup completed');
 }
 
 console.log('🔧 Service Worker script loaded');
-'''
-
-# Save the service worker
-with open('sw.js', 'w', encoding='utf-8') as f:
-    f.write(service_worker)
-
-print("✅ Service Worker created!")
-print("📁 File: sw.js")
-print("🔧 Service Worker Features:")
-print("   📱 Complete offline functionality")
-print("   📦 Intelligent caching strategies")
-print("   🔄 Background sync when connection restored")
-print("   🔔 Push notification support")
-print("   ⚡ GitHub API caching with smart expiry")
-print("   🗑️ Automatic cache cleanup")
-print("   📊 Cache status reporting")
-print("   🌐 App shell architecture")
-print("   ♿ Offline accessibility page")
-print("   🎯 Action-based notification handling")

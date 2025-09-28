@@ -1,5 +1,4 @@
-# Create comprehensive onboarding and tooltips system
-onboarding_system = '''/**
+/**
  * 🎓 Onboarding & Tooltips System
  * Guided walkthrough and contextual help for new users
  */
@@ -12,11 +11,11 @@ class OnboardingManager {
         this.isOnboardingActive = false;
         this.tooltips = new Map();
         this.completedSteps = new Set();
-        
+
         this.initializeOnboarding();
         this.setupTooltips();
     }
-    
+
     /**
      * Check if this is user's first visit
      */
@@ -28,7 +27,7 @@ class OnboardingManager {
         }
         return false;
     }
-    
+
     /**
      * Initialize onboarding system
      */
@@ -159,7 +158,7 @@ class OnboardingManager {
             },
             {
                 id: 'completion',
-                title: 'You\'re Ready to Explore! 🚀',
+                title: 'You're Ready to Explore! 🚀',
                 content: `
                     <p><strong>Congratulations!</strong> You now know how to navigate your constellation like a pro!</p>
                     <div class="completion-stats">
@@ -182,15 +181,15 @@ class OnboardingManager {
                 position: 'center'
             }
         ];
-        
+
         this.createOnboardingUI();
-        
+
         // Start onboarding if first visit
         if (this.isFirstVisit) {
             setTimeout(() => this.startOnboarding(), 2000);
         }
     }
-    
+
     /**
      * Create onboarding UI elements
      */
@@ -202,12 +201,12 @@ class OnboardingManager {
                         <h2 id="onboarding-title">Welcome</h2>
                         <button id="onboarding-skip" class="onboarding-skip" aria-label="Skip onboarding">Skip Tour</button>
                     </div>
-                    
+
                     <div class="onboarding-content">
                         <div id="onboarding-body" class="onboarding-body">
                             <!-- Content will be populated dynamically -->
                         </div>
-                        
+
                         <div class="onboarding-progress">
                             <div class="progress-bar">
                                 <div id="onboarding-progress-fill" class="progress-fill" style="width: 0%"></div>
@@ -215,23 +214,23 @@ class OnboardingManager {
                             <span id="onboarding-step-counter" class="step-counter">1 of 9</span>
                         </div>
                     </div>
-                    
+
                     <div class="onboarding-footer">
                         <button id="onboarding-prev" class="onboarding-btn secondary" disabled>Previous</button>
                         <button id="onboarding-next" class="onboarding-btn primary">Next</button>
                     </div>
                 </div>
-                
+
                 <div id="onboarding-spotlight" class="onboarding-spotlight"></div>
                 <div id="onboarding-pointer" class="onboarding-pointer"></div>
             </div>
-            
+
             <!-- Help trigger for returning users -->
             <button id="help-trigger" class="help-trigger" aria-label="Show help and tips" title="Help & Tips">
                 <span class="help-icon">?</span>
             </button>
         `;
-        
+
         const onboardingStyles = `
             <style>
                 .onboarding-overlay {
@@ -249,12 +248,12 @@ class OnboardingManager {
                     opacity: 0;
                     transition: opacity 0.3s ease;
                 }
-                
+
                 .onboarding-overlay.active {
                     display: flex;
                     opacity: 1;
                 }
-                
+
                 .onboarding-modal {
                     background: rgba(26, 26, 46, 0.95);
                     backdrop-filter: blur(20px);
@@ -268,7 +267,7 @@ class OnboardingManager {
                     position: relative;
                     animation: modalSlideIn 0.5s ease-out;
                 }
-                
+
                 @keyframes modalSlideIn {
                     from {
                         transform: translateY(30px) scale(0.9);
@@ -279,7 +278,7 @@ class OnboardingManager {
                         opacity: 1;
                     }
                 }
-                
+
                 .onboarding-header {
                     display: flex;
                     align-items: center;
@@ -288,14 +287,14 @@ class OnboardingManager {
                     border-bottom: 1px solid var(--border-color);
                     background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
                 }
-                
+
                 .onboarding-header h2 {
                     margin: 0;
                     color: white;
                     font-size: 1.25rem;
                     font-weight: 600;
                 }
-                
+
                 .onboarding-skip {
                     background: rgba(255, 255, 255, 0.2);
                     border: none;
@@ -306,42 +305,42 @@ class OnboardingManager {
                     cursor: pointer;
                     transition: background 0.2s ease;
                 }
-                
+
                 .onboarding-skip:hover {
                     background: rgba(255, 255, 255, 0.3);
                 }
-                
+
                 .onboarding-content {
                     padding: 24px;
                 }
-                
+
                 .onboarding-body {
                     min-height: 200px;
                     line-height: 1.6;
                     color: var(--text-primary);
                 }
-                
+
                 .onboarding-body h3 {
                     color: var(--accent-primary);
                     margin: 0 0 16px 0;
                 }
-                
+
                 .onboarding-body ul {
                     margin: 16px 0;
                     padding-left: 20px;
                 }
-                
+
                 .onboarding-body li {
                     margin: 8px 0;
                 }
-                
+
                 .onboarding-features {
                     display: grid;
                     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
                     gap: 12px;
                     margin: 16px 0;
                 }
-                
+
                 .feature-item {
                     background: rgba(35, 53, 84, 0.6);
                     padding: 12px 16px;
@@ -349,14 +348,14 @@ class OnboardingManager {
                     border-left: 3px solid var(--accent-primary);
                     font-weight: 500;
                 }
-                
+
                 .category-grid {
                     display: grid;
                     grid-template-columns: repeat(2, 1fr);
                     gap: 8px;
                     margin: 16px 0;
                 }
-                
+
                 .category-grid span {
                     background: rgba(35, 53, 84, 0.6);
                     padding: 8px 12px;
@@ -364,7 +363,7 @@ class OnboardingManager {
                     font-size: 0.9rem;
                     text-align: center;
                 }
-                
+
                 .completion-stats {
                     display: flex;
                     justify-content: space-around;
@@ -373,23 +372,23 @@ class OnboardingManager {
                     background: rgba(35, 53, 84, 0.4);
                     border-radius: 12px;
                 }
-                
+
                 .stat-item {
                     text-align: center;
                 }
-                
+
                 .stat-number {
                     display: block;
                     font-size: 2rem;
                     font-weight: bold;
                     color: var(--accent-primary);
                 }
-                
+
                 .stat-label {
                     font-size: 0.9rem;
                     color: var(--text-muted);
                 }
-                
+
                 .onboarding-progress {
                     display: flex;
                     align-items: center;
@@ -397,7 +396,7 @@ class OnboardingManager {
                     margin-top: 24px;
                     gap: 16px;
                 }
-                
+
                 .progress-bar {
                     flex: 1;
                     height: 6px;
@@ -405,20 +404,20 @@ class OnboardingManager {
                     border-radius: 3px;
                     overflow: hidden;
                 }
-                
+
                 .progress-fill {
                     height: 100%;
                     background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
                     border-radius: 3px;
                     transition: width 0.3s ease;
                 }
-                
+
                 .step-counter {
                     font-size: 0.9rem;
                     color: var(--text-muted);
                     white-space: nowrap;
                 }
-                
+
                 .onboarding-footer {
                     display: flex;
                     justify-content: space-between;
@@ -426,7 +425,7 @@ class OnboardingManager {
                     border-top: 1px solid var(--border-color);
                     background: rgba(16, 33, 62, 0.3);
                 }
-                
+
                 .onboarding-btn {
                     padding: 12px 24px;
                     border: none;
@@ -436,33 +435,33 @@ class OnboardingManager {
                     transition: all 0.2s ease;
                     min-width: 100px;
                 }
-                
+
                 .onboarding-btn.primary {
                     background: var(--accent-primary);
                     color: var(--bg-primary);
                 }
-                
+
                 .onboarding-btn.primary:hover {
                     background: var(--accent-secondary);
                     transform: translateY(-1px);
                 }
-                
+
                 .onboarding-btn.secondary {
                     background: rgba(35, 53, 84, 0.6);
                     color: var(--text-primary);
                     border: 1px solid var(--border-color);
                 }
-                
+
                 .onboarding-btn.secondary:hover {
                     background: rgba(35, 53, 84, 0.8);
                 }
-                
+
                 .onboarding-btn:disabled {
                     opacity: 0.5;
                     cursor: not-allowed;
                     transform: none !important;
                 }
-                
+
                 .onboarding-spotlight {
                     position: absolute;
                     border: 3px solid var(--accent-primary);
@@ -473,11 +472,11 @@ class OnboardingManager {
                     transition: all 0.5s ease;
                     opacity: 0;
                 }
-                
+
                 .onboarding-spotlight.active {
                     opacity: 1;
                 }
-                
+
                 .onboarding-pointer {
                     position: absolute;
                     width: 0;
@@ -487,35 +486,35 @@ class OnboardingManager {
                     opacity: 0;
                     transition: all 0.3s ease;
                 }
-                
+
                 .onboarding-pointer.active {
                     opacity: 1;
                 }
-                
+
                 .onboarding-pointer.top {
                     border-left: 10px solid transparent;
                     border-right: 10px solid transparent;
                     border-bottom: 15px solid var(--accent-primary);
                 }
-                
+
                 .onboarding-pointer.bottom {
                     border-left: 10px solid transparent;
                     border-right: 10px solid transparent;
                     border-top: 15px solid var(--accent-primary);
                 }
-                
+
                 .onboarding-pointer.left {
                     border-top: 10px solid transparent;
                     border-bottom: 10px solid transparent;
                     border-right: 15px solid var(--accent-primary);
                 }
-                
+
                 .onboarding-pointer.right {
                     border-top: 10px solid transparent;
                     border-bottom: 10px solid transparent;
                     border-left: 15px solid var(--accent-primary);
                 }
-                
+
                 .help-trigger {
                     position: fixed;
                     bottom: 20px;
@@ -536,85 +535,85 @@ class OnboardingManager {
                     align-items: center;
                     justify-content: center;
                 }
-                
+
                 .help-trigger:hover {
                     background: var(--accent-secondary);
                     transform: translateY(-2px);
                     box-shadow: 0 6px 16px rgba(0, 217, 255, 0.4);
                 }
-                
+
                 .help-icon {
                     line-height: 1;
                 }
-                
+
                 /* Mobile adjustments */
                 @media (max-width: 768px) {
                     .onboarding-modal {
                         width: 95%;
                         max-height: 90vh;
                     }
-                    
+
                     .onboarding-content {
                         padding: 16px;
                     }
-                    
+
                     .onboarding-footer {
                         padding: 16px;
                     }
-                    
+
                     .completion-stats {
                         flex-direction: column;
                         gap: 16px;
                     }
-                    
+
                     .stat-item {
                         display: flex;
                         align-items: center;
                         justify-content: space-between;
                     }
-                    
+
                     .stat-number {
                         font-size: 1.5rem;
                         margin-right: 16px;
                     }
-                    
+
                     .help-trigger {
                         width: 45px;
                         height: 45px;
                         font-size: 1.3rem;
                     }
                 }
-                
+
                 /* Focus mode adjustments */
                 .focus-mode .help-trigger {
                     opacity: 0.6;
                 }
-                
+
                 .focus-mode .help-trigger:hover {
                     opacity: 1;
                 }
-                
+
                 /* High contrast mode */
                 .high-contrast .onboarding-modal {
                     border: 2px solid white;
                     background: black;
                 }
-                
+
                 .high-contrast .feature-item {
                     background: #333;
                     border-left-color: white;
                 }
             </style>
         `;
-        
+
         // Inject styles and HTML
         document.head.insertAdjacentHTML('beforeend', onboardingStyles);
         document.body.insertAdjacentHTML('beforeend', onboardingHTML);
-        
+
         // Setup event listeners
         this.setupOnboardingEventListeners();
     }
-    
+
     /**
      * Setup onboarding event listeners
      */
@@ -623,16 +622,16 @@ class OnboardingManager {
         const prevBtn = document.getElementById('onboarding-prev');
         const skipBtn = document.getElementById('onboarding-skip');
         const helpTrigger = document.getElementById('help-trigger');
-        
+
         nextBtn.addEventListener('click', () => this.nextStep());
         prevBtn.addEventListener('click', () => this.previousStep());
         skipBtn.addEventListener('click', () => this.skipOnboarding());
         helpTrigger.addEventListener('click', () => this.showHelp());
-        
+
         // Keyboard navigation
         document.addEventListener('keydown', (e) => {
             if (!this.isOnboardingActive) return;
-            
+
             if (e.key === 'ArrowRight' || e.key === 'Enter') {
                 e.preventDefault();
                 this.nextStep();
@@ -645,45 +644,45 @@ class OnboardingManager {
             }
         });
     }
-    
+
     /**
      * Start the onboarding process
      */
     startOnboarding() {
         this.isOnboardingActive = true;
         this.currentStep = 0;
-        
+
         const overlay = document.getElementById('onboarding-overlay');
         overlay.classList.add('active');
-        
+
         this.showStep(this.currentStep);
-        
+
         // Announce to screen reader
         this.constellation.announceToScreenReader('Starting interactive tour of the constellation interface');
     }
-    
+
     /**
      * Show a specific onboarding step
      */
     showStep(stepIndex) {
         const step = this.onboardingSteps[stepIndex];
         if (!step) return;
-        
+
         // Update content
         document.getElementById('onboarding-title').textContent = step.title;
         document.getElementById('onboarding-body').innerHTML = step.content;
-        
+
         // Update progress
         const progress = ((stepIndex + 1) / this.onboardingSteps.length) * 100;
         document.getElementById('onboarding-progress-fill').style.width = progress + '%';
         document.getElementById('onboarding-step-counter').textContent = `${stepIndex + 1} of ${this.onboardingSteps.length}`;
-        
+
         // Update navigation buttons
         const prevBtn = document.getElementById('onboarding-prev');
         const nextBtn = document.getElementById('onboarding-next');
-        
+
         prevBtn.disabled = stepIndex === 0;
-        
+
         if (stepIndex === this.onboardingSteps.length - 1) {
             nextBtn.textContent = 'Get Started!';
             nextBtn.classList.add('completion');
@@ -691,50 +690,50 @@ class OnboardingManager {
             nextBtn.textContent = 'Next';
             nextBtn.classList.remove('completion');
         }
-        
+
         // Show spotlight
         this.showSpotlight(step.target, step.position);
-        
+
         // Mark step as completed
         this.completedSteps.add(step.id);
-        
+
         // Announce step
         this.constellation.announceToScreenReader(`Step ${stepIndex + 1}: ${step.title}`);
     }
-    
+
     /**
      * Show spotlight on target element
      */
     showSpotlight(target, position) {
         const spotlight = document.getElementById('onboarding-spotlight');
         const pointer = document.getElementById('onboarding-pointer');
-        
+
         if (!target) {
             spotlight.classList.remove('active');
             pointer.classList.remove('active');
             return;
         }
-        
+
         const targetElement = document.querySelector(target);
         if (!targetElement) {
             spotlight.classList.remove('active');
             pointer.classList.remove('active');
             return;
         }
-        
+
         const rect = targetElement.getBoundingClientRect();
         const padding = 8;
-        
+
         // Position spotlight
         spotlight.style.left = (rect.left - padding) + 'px';
         spotlight.style.top = (rect.top - padding) + 'px';
         spotlight.style.width = (rect.width + padding * 2) + 'px';
         spotlight.style.height = (rect.height + padding * 2) + 'px';
         spotlight.classList.add('active');
-        
+
         // Position pointer
         pointer.className = `onboarding-pointer active ${position}`;
-        
+
         switch (position) {
             case 'top':
                 pointer.style.left = (rect.left + rect.width / 2 - 10) + 'px';
@@ -754,7 +753,7 @@ class OnboardingManager {
                 break;
         }
     }
-    
+
     /**
      * Move to next step
      */
@@ -766,7 +765,7 @@ class OnboardingManager {
             this.completeOnboarding();
         }
     }
-    
+
     /**
      * Move to previous step
      */
@@ -776,53 +775,53 @@ class OnboardingManager {
             this.showStep(this.currentStep);
         }
     }
-    
+
     /**
      * Skip onboarding
      */
     skipOnboarding() {
         this.isOnboardingActive = false;
-        
+
         const overlay = document.getElementById('onboarding-overlay');
         overlay.classList.remove('active');
-        
+
         // Hide spotlight
         const spotlight = document.getElementById('onboarding-spotlight');
         const pointer = document.getElementById('onboarding-pointer');
         spotlight.classList.remove('active');
         pointer.classList.remove('active');
-        
+
         this.constellation.announceToScreenReader('Onboarding skipped. You can access help anytime using the help button.');
     }
-    
+
     /**
      * Complete onboarding
      */
     completeOnboarding() {
         this.isOnboardingActive = false;
-        
+
         // Store completion
         localStorage.setItem('onboarding-completed', 'true');
-        
+
         const overlay = document.getElementById('onboarding-overlay');
         overlay.classList.remove('active');
-        
+
         // Hide spotlight
         const spotlight = document.getElementById('onboarding-spotlight');
         const pointer = document.getElementById('onboarding-pointer');
         spotlight.classList.remove('active');
         pointer.classList.remove('active');
-        
+
         // Unlock first achievement
         this.constellation.unlockAchievement({
             id: 'first-explorer',
             name: 'First Explorer',
             icon: '🎯'
         });
-        
+
         this.constellation.announceToScreenReader('Onboarding completed! Welcome to your constellation. Start exploring to unlock achievements.');
     }
-    
+
     /**
      * Show help menu for returning users
      */
@@ -858,7 +857,7 @@ class OnboardingManager {
                 <button onclick="this.closest('.help-menu').remove()" class="help-close">Got it!</button>
             </div>
         `;
-        
+
         // Create help overlay
         const helpOverlay = document.createElement('div');
         helpOverlay.className = 'help-overlay';
@@ -875,16 +874,16 @@ class OnboardingManager {
             justify-content: center;
             z-index: 9999;
         `;
-        
+
         document.body.appendChild(helpOverlay);
-        
+
         // Auto-remove after 10 seconds
         setTimeout(() => {
             if (helpOverlay.parentNode) {
                 helpOverlay.remove();
             }
         }, 10000);
-        
+
         // Remove on click outside
         helpOverlay.addEventListener('click', (e) => {
             if (e.target === helpOverlay) {
@@ -892,7 +891,7 @@ class OnboardingManager {
             }
         });
     }
-    
+
     /**
      * Setup contextual tooltips
      */
@@ -929,10 +928,10 @@ class OnboardingManager {
                 position: 'top'
             }
         ];
-        
+
         this.createTooltips();
     }
-    
+
     /**
      * Create tooltip system
      */
@@ -957,11 +956,11 @@ class OnboardingManager {
                     pointer-events: none;
                     transition: opacity 0.3s ease;
                 }
-                
+
                 .tooltip.show {
                     opacity: 1;
                 }
-                
+
                 .tooltip::after {
                     content: '';
                     position: absolute;
@@ -969,7 +968,7 @@ class OnboardingManager {
                     height: 0;
                     border-style: solid;
                 }
-                
+
                 .tooltip.top::after {
                     bottom: -8px;
                     left: 50%;
@@ -978,7 +977,7 @@ class OnboardingManager {
                     border-right: 8px solid transparent;
                     border-top: 8px solid rgba(26, 26, 46, 0.95);
                 }
-                
+
                 .tooltip.bottom::after {
                     top: -8px;
                     left: 50%;
@@ -987,7 +986,7 @@ class OnboardingManager {
                     border-right: 8px solid transparent;
                     border-bottom: 8px solid rgba(26, 26, 46, 0.95);
                 }
-                
+
                 .tooltip.left::after {
                     right: -8px;
                     top: 50%;
@@ -996,7 +995,7 @@ class OnboardingManager {
                     border-bottom: 8px solid transparent;
                     border-left: 8px solid rgba(26, 26, 46, 0.95);
                 }
-                
+
                 .tooltip.right::after {
                     left: -8px;
                     top: 50%;
@@ -1007,9 +1006,9 @@ class OnboardingManager {
                 }
             </style>
         `;
-        
+
         document.head.insertAdjacentHTML('beforeend', tooltipStyles);
-        
+
         // Setup tooltip triggers
         this.tooltipDefinitions.forEach(tooltip => {
             const elements = document.querySelectorAll(tooltip.selector);
@@ -1018,7 +1017,7 @@ class OnboardingManager {
             });
         });
     }
-    
+
     /**
      * Add tooltip to element
      */
@@ -1026,11 +1025,11 @@ class OnboardingManager {
         let tooltip = null;
         let showTimeout = null;
         let hideTimeout = null;
-        
+
         const showTooltip = () => {
             if (showTimeout) clearTimeout(showTimeout);
             if (hideTimeout) clearTimeout(hideTimeout);
-            
+
             showTimeout = setTimeout(() => {
                 if (!tooltip) {
                     tooltip = document.createElement('div');
@@ -1038,9 +1037,9 @@ class OnboardingManager {
                     tooltip.textContent = content;
                     document.body.appendChild(tooltip);
                 }
-                
+
                 const rect = element.getBoundingClientRect();
-                
+
                 // Position tooltip
                 switch (position) {
                     case 'top':
@@ -1064,15 +1063,15 @@ class OnboardingManager {
                         tooltip.style.transform = 'translateY(-50%)';
                         break;
                 }
-                
+
                 tooltip.classList.add('show');
             }, 800); // Delay to avoid overwhelming users
         };
-        
+
         const hideTooltip = () => {
             if (showTimeout) clearTimeout(showTimeout);
             if (hideTimeout) clearTimeout(hideTimeout);
-            
+
             hideTimeout = setTimeout(() => {
                 if (tooltip) {
                     tooltip.classList.remove('show');
@@ -1085,7 +1084,7 @@ class OnboardingManager {
                 }
             }, 100);
         };
-        
+
         element.addEventListener('mouseenter', showTooltip);
         element.addEventListener('mouseleave', hideTooltip);
         element.addEventListener('focus', showTooltip);
@@ -1095,22 +1094,3 @@ class OnboardingManager {
 
 // Export the Onboarding Manager
 window.OnboardingManager = OnboardingManager;
-'''
-
-# Save the onboarding system
-with open('onboarding-manager.js', 'w', encoding='utf-8') as f:
-    f.write(onboarding_system)
-
-print("✅ Onboarding Manager created!")
-print("📁 File: onboarding-manager.js")
-print("🎓 Features:")
-print("   🌟 9-step guided walkthrough for new users")
-print("   💡 Contextual tooltips for UI elements")
-print("   🎯 Smart spotlight system highlighting elements")
-print("   ⌨️ Keyboard navigation (arrows, enter, escape)")
-print("   📱 Mobile-responsive onboarding interface")
-print("   ♿ Screen reader announcements for each step")
-print("   🏆 Achievement unlock integration")
-print("   ❓ Help trigger for returning users")
-print("   🎮 Progress tracking and step completion")
-print("   ⚡ Focus mode adjustments")

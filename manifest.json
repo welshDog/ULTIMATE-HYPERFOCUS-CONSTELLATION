@@ -1,5 +1,4 @@
-# Create PWA manifest and service worker
-pwa_manifest = '''{
+{
   "name": "Ultimate Hyperfocus Constellation",
   "short_name": "Hyperfocus Constellation",
   "description": "The world's most advanced 3D repository visualization designed for neurodivergent minds",
@@ -11,7 +10,7 @@ pwa_manifest = '''{
   "categories": ["productivity", "developer", "accessibility", "education"],
   "lang": "en-US",
   "dir": "ltr",
-  
+
   "icons": [
     {
       "src": "icons/icon-72x72.png",
@@ -62,7 +61,7 @@ pwa_manifest = '''{
       "purpose": "maskable any"
     }
   ],
-  
+
   "screenshots": [
     {
       "src": "screenshots/desktop-1.png",
@@ -79,7 +78,7 @@ pwa_manifest = '''{
       "label": "Mobile Touch Interface"
     }
   ],
-  
+
   "shortcuts": [
     {
       "name": "Start Hyperfocus Session",
@@ -121,23 +120,23 @@ pwa_manifest = '''{
       ]
     }
   ],
-  
+
   "related_applications": [
     {
       "platform": "web",
       "url": "https://welshdog.github.io/ULTIMATE-HYPERFOCUS-CONSTELLATION/"
     }
   ],
-  
+
   "prefer_related_applications": false,
-  
+
   "protocol_handlers": [
     {
       "protocol": "web+hyperfocus",
       "url": "/ULTIMATE-HYPERFOCUS-CONSTELLATION/share?data=%s"
     }
   ],
-  
+
   "share_target": {
     "action": "/ULTIMATE-HYPERFOCUS-CONSTELLATION/share",
     "method": "GET",
@@ -147,26 +146,10 @@ pwa_manifest = '''{
       "url": "url"
     }
   },
-  
+
   "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
-  
+
   "edge_side_panel": {
     "preferred_width": 400
   }
-}'''
-
-# Save the PWA manifest
-with open('manifest.json', 'w', encoding='utf-8') as f:
-    f.write(pwa_manifest)
-
-print("✅ PWA Manifest created!")
-print("📁 File: manifest.json")
-print("📱 PWA Features:")
-print("   🏠 Standalone app experience")
-print("   🎨 Custom theme colors and icons")
-print("   ⚡ App shortcuts for hyperfocus and research")
-print("   📱 Mobile-optimized display")
-print("   🔗 Web share integration")
-print("   📊 Screenshot previews")
-print("   ♿ Accessibility category")
-print("   🌐 Protocol handlers for deep linking")
+}
