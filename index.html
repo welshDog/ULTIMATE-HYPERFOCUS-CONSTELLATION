@@ -1021,20 +1021,8 @@
     </div>
 
     <!-- JavaScript Application -->
-    <script>
-        // Load the main constellation application
-        document.addEventListener('DOMContentLoaded', function() {
-            // Initialize application after DOM is ready
-            setTimeout(() => {
-                initializeConstellation();
-            }, 500);
-        });
-
-        function initializeConstellation() {
-            // Hide loading screen
-            const loadingScreen = document.getElementById('loading-screen');
-            loadingScreen.classList.add('hidden');
-
+    <script>// Basic interactivity for demonstration
+        document.getElementById('settings-toggle').addEventListener('click', function() {
             // Initialize the 3D constellation
             // This will load from ultimate_hyperfocus_constellation.js
             console.log('🌌 Ultimate Hyperfocus Constellation initialized!');
@@ -1214,6 +1202,12 @@
     </script>
 
     <!-- Load External JavaScript -->
+    <!-- The order is important for dependencies! -->
     <script src="./ultimate_hyperfocus_constellation.js" defer></script>
+    <script src="./github-api-manager.js" defer></script>
+    <script src="./research-mode-manager.js" defer></script>
+    <script src="./pwa-manager.js" defer></script>
+    <!-- Add other managers here if they exist -->
+
 </body>
 </html>

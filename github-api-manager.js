@@ -234,7 +234,11 @@ class GitHubAPIManager {
                 this.rateLimitReset = parseInt(response.headers.get('X-RateLimit-Reset')) * 1000 || Date.now();
 
                 if (!response.ok) {
-                    throw new Error(`GitHub API error: ${response.status}`);
+                    const errorBody = await response.json().catch(() => ({ message: 'No error body.' }));
+                    const errorMessage = `GitHub API error: ${response.status} ${response.statusText}. Message: ${errorBody.message}`;
+                    console.error(errorMessage);
+                    reject(new Error(errorMessage));
+                    return; // Important to exit after rejecting
                 }
 
                 const data = await response.json();

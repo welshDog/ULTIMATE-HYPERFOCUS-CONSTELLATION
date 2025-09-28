@@ -109,22 +109,40 @@ class UltimateHyperfocusConstellation {
      */
     async init() {
         try {
+            this.updateLoadingStatus('Initializing 3D engine...');
             await this.initializeThreeJS();
+
+            this.updateLoadingStatus('Loading repository data...');
             await this.loadRepositoryData();
+
+            this.updateLoadingStatus('Creating constellation...');
             this.createConstellation();
+
+            this.updateLoadingStatus('Setting up interactions...');
             this.setupEventListeners();
             this.setupAccessibilityFeatures();
+
+            this.updateLoadingStatus('Finalizing...');
             this.startRenderLoop();
             this.initializeAchievements();
             this.hideLoadingScreen();
 
-            this.announceToScreenReader('Ultimate Hyperfocus Constellation loaded. 37 repositories ready to explore.');
             console.log('🌌 Constellation fully initialized!');
         } catch (error) {
             console.error('❌ Initialization error:', error);
             this.showError('Failed to initialize constellation. Please refresh the page.');
         }
     }
+
+    updateLoadingStatus(message) {
+        const subtext = document.querySelector('.loading-subtext');
+        if (subtext) {
+            subtext.textContent = `🌟 ${message}`;
+        }
+        // Also announce to screen readers if they are waiting
+        this.announceToScreenReader(message);
+    }
+
 
     /**
      * Initialize Three.js scene, camera, and renderer
@@ -176,9 +194,19 @@ class UltimateHyperfocusConstellation {
      * Load repository data from GitHub API or local data
      */
     async loadRepositoryData() {
-        // For demo purposes, we'll use mock data
-        // In production, this would fetch from GitHub API
-        this.repositories = this.generateMockRepositories();
+        try {
+            // In production, this would use the GitHubAPIManager
+            if (window.GitHubAPIManager) {
+                const apiManager = new window.GitHubAPIManager();
+                this.repositories = await apiManager.fetchUserRepositories();
+            } else {
+                console.warn('GitHubAPIManager not found, using mock data.');
+                this.repositories = this.generateMockRepositories();
+            }
+        } catch (error) {
+            console.error('Failed to load repository data, using fallback.', error);
+            this.repositories = this.generateMockRepositories(); // Use mock as fallback
+        }
 
         // Calculate total stars
         this.totalStars = this.repositories.reduce((sum, repo) => sum + repo.stars, 0);
@@ -1018,6 +1046,7 @@ class UltimateHyperfocusConstellation {
         if (loadingScreen) {
             setTimeout(() => {
                 loadingScreen.classList.add('hidden');
+                this.announceToScreenReader(`Ultimate Hyperfocus Constellation loaded. ${this.repositories.length} repositories ready to explore.`);
             }, 1000);
         }
     }
@@ -1027,7 +1056,13 @@ class UltimateHyperfocusConstellation {
      */
     showError(message) {
         console.error('❌ Error:', message);
-        // Could show error UI here
+        const loadingScreen = document.getElementById('loading-screen');
+        if (loadingScreen) {
+            loadingScreen.classList.remove('hidden'); // Ensure it's visible
+            loadingScreen.innerHTML = `
+                <h2 style="color: var(--error-color);">❌ Error</h2>
+                <p>${message}</p>`;
+        }
     }
 
     /**
