@@ -335,7 +335,7 @@ class GitHubAPIManager {
                 language: 'JavaScript',
                 updated: new Date(),
                 url: 'https://github.com/welshDog/ULTIMATE-HYPERFOCUS-CONSTELLATION',
-                color: '#00d9ff',
+                color: '#00d9ff', 
                 position: { x: 0, y: 0, z: 0 }
             }
             // Add more fallback repos as needed
