@@ -1020,25 +1020,10 @@
         </div>
     </div>
 
-    <!-- JavaScript Application -->
-    <script>// Basic interactivity for demonstration
-        document.getElementById('settings-toggle').addEventListener('click', function() {
-            // Initialize the 3D constellation
-            // This will load from ultimate_hyperfocus_constellation.js
-            console.log('🌌 Ultimate Hyperfocus Constellation initialized!');
-        }
-
-        // Basic interactivity for demonstration
-        document.getElementById('settings-toggle').addEventListener('click', function() {
-            const panel = document.getElementById('accessibility-panel');
-            panel.classList.toggle('hidden');
-        });
-
-        document.getElementById('focus-toggle').addEventListener('click', function() {
-            const overlay = document.getElementById('focus-overlay');
-            overlay.classList.toggle('active');
-            this.textContent = overlay.classList.contains('active') ? '🔆 Exit Focus' : '🎯 Focus';
-        });
+    // Basic interactivity for demonstration
+document.getElementById('settings-toggle').addEventListener('click', function() {
+    const panel = document.getElementById('accessibility-panel');
+    panel.classList.toggle('hidden');
 
         // Session timer functionality
         let sessionActive = false;
@@ -1054,13 +1039,27 @@
         });
 
         function startHyperfocusSession() {
-            sessionActive = true;
-            sessionStart = Date.now();
-            document.getElementById('session-toggle').textContent = '⏹️ End Session';
-            document.getElementById('session-toggle').classList.add('stop');
-            document.getElementById('focus-status').textContent = 'Hyperfocus session active - you're in the zone!';
+            if (sessionActive) {
+                console.warn('startHyperfocusSession() called while session is already active');
+                return;
+            }
 
-            sessionInterval = setInterval(updateSessionTimer, 1000);
+            if (!document.getElementById('session-toggle') || !document.getElementById('focus-status')) {
+                console.error('startHyperfocusSession() called before the necessary DOM elements have been initialized');
+                return;
+            }
+
+            try {
+                sessionActive = true;
+                sessionStart = Date.now();
+                document.getElementById('session-toggle').textContent = '⏹️ End Session';
+                document.getElementById('session-toggle').classList.add('stop');
+                document.getElementById('focus-status').textContent = 'Hyperfocus session active - you\'re in the zone!';
+
+                sessionInterval = setInterval(updateSessionTimer, 1000);
+            } catch (error) {
+                console.error('Error in startHyperfocusSession():', error);
+            }
         }
 
         function stopHyperfocusSession() {
