@@ -323,23 +323,23 @@ class GitHubAPIManager {
     /**
      * Fallback repository data if API is unavailable
      */
-    getFallbackRepositories() {
-        return [
-            {
-                id: 1,
-                name: 'ULTIMATE-HYPERFOCUS-CONSTELLATION',
-                description: 'The world's most advanced 3D repository visualization designed for neurodivergent minds',
-                category: 'core',
-                stars: 0,
-                forks: 0,
-                language: 'JavaScript',
-                updated: new Date(),
-                url: 'https://github.com/welshDog/ULTIMATE-HYPERFOCUS-CONSTELLATION',
-                color: '#00d9ff', 
-                position: { x: 0, y: 0, z: 0 }
-            }
-            // Add more fallback repos as needed
-        ];
+ getFallbackRepositories() {
+    return [
+        {
+            id: 1,
+            name: 'ULTIMATE-HYPERFOCUS-CONSTELLATION',
+            description: 'The world\'s most advanced 3D repository visualization designed for neurodivergent minds',
+            category: 'core',
+            stars: 0,
+            forks: 0,
+            language: 'JavaScript',
+            updated: new Date(),
+            url: 'https://github.com/welshDog/ULTIMATE-HYPERFOCUS-CONSTELLATION',
+            color: '#00d9ff',
+            position: { x: 0, y: 0, z: 0 }
+        },
+        // Add more fallback repos as needed
+    ];
     }
 
     /**
