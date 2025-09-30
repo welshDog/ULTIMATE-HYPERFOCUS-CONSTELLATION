@@ -1236,8 +1236,14 @@ document.getElementById('settings-toggle').addEventListener('click', function() 
 <script src="github-api-manager_v1.0.js" type="module"></script>
 <script src="research-mode-manager_v1.0.js" type="module"></script>
 <script src="pwa-manager_v1.0.js" type="module"></script>
+<script src="constellation-integrator_v1.0.js" type="module"></script>
+
 
     <!-- Add other managers here if they exist -->
 
 </body>
 </html>
+// Export for use in other scripts
+window.UltimateHyperfocusConstellation = UltimateHyperfocusConstellation;
+
+console.log('⚡ Ultimate Hyperfocus Constellation class exported to window');
