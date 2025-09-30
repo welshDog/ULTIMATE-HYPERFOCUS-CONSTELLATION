@@ -466,11 +466,12 @@ class UltimateHyperfocusConstellation {
      */
     setupEventListeners() {
         // Mouse events
-        this.canvas.addEventListener('mousedown', this.onMouseDown.bind(this));
-        this.canvas.addEventListener('mousemove', this.onMouseMove.bind(this));
-        this.canvas.addEventListener('mouseup', this.onMouseUp.bind(this));
-        this.canvas.addEventListener('wheel', this.onMouseWheel.bind(this));
-        this.canvas.addEventListener('click', this.onMouseClick.bind(this));
+    this.canvas.addEventListener('wheel', this.onMouseWheel.bind(this), { passive: false });
+this.canvas.addEventListener('touchstart', this.onTouchStart.bind(this), { passive: false });
+this.canvas.addEventListener('touchmove', this.onTouchMove.bind(this), { passive: false });
+this.canvas.addEventListener('touchend', this.onTouchEnd.bind(this), { passive: true });
+window.addEventListener('resize', this.onWindowResize.bind(this), { passive: true });
+document.addEventListener('visibilitychange', this.onVisibilityChange.bind(this), { passive: true });
 
         // Touch events for mobile
         this.canvas.addEventListener('touchstart', this.onTouchStart.bind(this));
