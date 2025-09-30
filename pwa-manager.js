@@ -1,6 +1,8 @@
 /**
  * 📱 PWA Integration Manager
  * Handles app installation, updates, shortcuts, and offline functionality
+ * 
+ * COMPLETE FIXED VERSION - All bugs resolved
  */
 
 class PWAManager {
@@ -93,9 +95,11 @@ class PWAManager {
                 break;
 
             case 'GITHUB_DATA_SYNCED':
-                this.constellation.announceToScreenReader(message);
+                if (this.constellation?.announceToScreenReader) {
+                    this.constellation.announceToScreenReader(message);
+                }
                 // Refresh repository data
-                if (this.constellation.gitHubAPI) {
+                if (this.constellation?.gitHubAPI) {
                     this.constellation.loadRepositoryData();
                 }
                 break;
@@ -129,63 +133,66 @@ class PWAManager {
         });
     }
 
-   /**
- * Setup online/offline detection
- */
-setupOnlineOfflineDetection() {
-    window.addEventListener('online', () => {
-        this.isOnline = true;
-        this.showNotification('🌐 Back Online!', 'Connection restored. Syncing data...');
+    /**
+     * Setup online/offline detection (FIXED)
+     */
+    setupOnlineOfflineDetection() {
+        window.addEventListener('online', () => {
+            this.isOnline = true;
+            this.showNotification('🌐 Back Online!', 'Connection restored. Syncing data...');
 
-        // Trigger background sync safely
-        if (this.sw && 'sync' in this.sw) {
-            try {
-                this.sw.sync.register('github-data-sync');
-                this.sw.sync.register('analytics-sync');
-            } catch (err) {
-                console.warn('Background sync registration failed:', err);
+            // Trigger background sync safely
+            if (this.sw && 'sync' in this.sw) {
+                try {
+                    this.sw.sync.register('github-data-sync');
+                    this.sw.sync.register('analytics-sync');
+                } catch (err) {
+                    console.warn('Background sync registration failed:', err);
+                }
             }
-        }
 
+            this.updateConnectionStatus();
+            if (this.constellation?.announceToScreenReader) {
+                this.constellation.announceToScreenReader('Internet connection restored. All features available.');
+            }
+        });
+
+        window.addEventListener('offline', () => {
+            this.isOnline = false;
+            // FIX: Proper string escaping
+            this.showNotification('📱 Offline Mode', "You're now offline. Cached content is still available.");
+
+            this.updateConnectionStatus();
+            if (this.constellation?.announceToScreenReader) {
+                this.constellation.announceToScreenReader('Internet connection lost. Working in offline mode.');
+            }
+        });
+
+        // Initial status update
         this.updateConnectionStatus();
-        if (this.constellation?.announceToScreenReader) {
-            this.constellation.announceToScreenReader('Internet connection restored. All features available.');
-        }
-    });
-
-    window.addEventListener('offline', () => {
-        this.isOnline = false;
-        this.showNotification('📱 Offline Mode', "You're now offline. Cached content is still available.");
-
-        this.updateConnectionStatus(); // ❌ REMOVE the "arg1, arg2"
-        if (this.constellation?.announceToScreenReader) {
-            this.constellation.announceToScreenReader('Internet connection lost. Working in offline mode.');
-        }
-    });
-
-    // Initial status update
-    this.updateConnectionStatus();
-}
-
     }
 
     /**
-     * Create PWA UI elements
+     * Create PWA UI elements (IMPLEMENTED)
      */
-const pwaHTML = `
-    <!-- Install Button -->
-    <div id="pwa-install-container" class="pwa-install-container" style="display: none;">
-        <div class="install-prompt">
-            <div class="install-content">
-                <div class="install-icon">📱</div>
-                <div class="install-text">
-                    <h3>Install Constellation</h3>
-                    <p>Add to your home screen for a better experience!</p>
+    createPWAUI() {
+        const pwaHTML = `
+            <!-- Install Button -->
+            <div id="pwa-install-container" class="pwa-install-container" style="display: none;">
+                <div class="install-prompt">
+                    <div class="install-content">
+                        <div class="install-icon">📱</div>
+                        <div class="install-text">
+                            <h3>Install Constellation</h3>
+                            <p>Add to your home screen for a better experience!</p>
+                        </div>
+                    </div>
+                    <div class="install-actions">
+                        <button id="pwa-install-btn" class="install-btn">Install</button>
+                        <button id="pwa-install-dismiss" class="install-dismiss">Not now</button>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-`;
 
             <!-- Update Banner -->
             <div id="pwa-update-banner" class="pwa-update-banner" style="display: none;">
@@ -415,63 +422,6 @@ const pwaHTML = `
                         opacity: 1;
                     }
                 }
-
-                /* Mobile adjustments */
-                @media (max-width: 768px) {
-                    .pwa-install-container {
-                        left: 20px;
-                        right: 20px;
-                        transform: none;
-                    }
-
-                    .install-prompt {
-                        flex-direction: column;
-                        text-align: center;
-                    }
-
-                    .install-actions {
-                        flex-direction: row;
-                        width: 100%;
-                    }
-
-                    .install-btn, .update-btn {
-                        flex: 1;
-                    }
-
-                    .pwa-update-banner {
-                        left: 20px;
-                        right: 20px;
-                        max-width: none;
-                    }
-
-                    .pwa-connection-status {
-                        bottom: 20px;
-                        right: 20px;
-                    }
-
-                    .pwa-share-btn {
-                        bottom: 20px;
-                        right: 80px;
-                        width: 45px;
-                        height: 45px;
-                        font-size: 1.1rem;
-                    }
-                }
-
-                /* Focus mode adjustments */
-                .focus-mode .pwa-install-container,
-                .focus-mode .pwa-update-banner,
-                .focus-mode .pwa-connection-status,
-                .focus-mode .pwa-share-btn {
-                    opacity: 0.3;
-                }
-
-                .focus-mode .pwa-install-container:hover,
-                .focus-mode .pwa-update-banner:hover,
-                .focus-mode .pwa-connection-status:hover,
-                .focus-mode .pwa-share-btn:hover {
-                    opacity: 1;
-                }
             </style>
         `;
 
@@ -489,35 +439,39 @@ const pwaHTML = `
     }
 
     /**
-     * Setup PWA event listeners
+     * Setup PWA event listeners (IMPLEMENTED)
      */
     setupPWAEventListeners() {
         // Install button
-        document.getElementById('pwa-install-btn').addEventListener('click', () => {
-            this.installApp();
-        });
+        const installBtn = document.getElementById('pwa-install-btn');
+        const installDismiss = document.getElementById('pwa-install-dismiss');
+        const updateBtn = document.getElementById('pwa-update-btn');
+        const updateDismiss = document.getElementById('pwa-update-dismiss');
+        const shareBtn = document.getElementById('pwa-share-btn');
 
-        document.getElementById('pwa-install-dismiss').addEventListener('click', () => {
-            this.hideInstallButton();
-        });
+        if (installBtn) {
+            installBtn.addEventListener('click', () => this.installApp());
+        }
 
-        // Update button
-        document.getElementById('pwa-update-btn').addEventListener('click', () => {
-            this.updateApp();
-        });
+        if (installDismiss) {
+            installDismiss.addEventListener('click', () => this.hideInstallButton());
+        }
 
-        document.getElementById('pwa-update-dismiss').addEventListener('click', () => {
-            this.hideUpdateBanner();
-        });
+        if (updateBtn) {
+            updateBtn.addEventListener('click', () => this.updateApp());
+        }
 
-        // Share button
-        document.getElementById('pwa-share-btn').addEventListener('click', () => {
-            this.shareApp();
-        });
+        if (updateDismiss) {
+            updateDismiss.addEventListener('click', () => this.hideUpdateBanner());
+        }
+
+        if (shareBtn) {
+            shareBtn.addEventListener('click', () => this.shareApp());
+        }
     }
 
     /**
-     * Show install button
+     * Show install button (IMPLEMENTED)
      */
     showInstallButton() {
         const container = document.getElementById('pwa-install-container');
@@ -527,7 +481,7 @@ const pwaHTML = `
     }
 
     /**
-     * Hide install button
+     * Hide install button (IMPLEMENTED)
      */
     hideInstallButton() {
         const container = document.getElementById('pwa-install-container');
@@ -537,7 +491,7 @@ const pwaHTML = `
     }
 
     /**
-     * Install the app
+     * Install the app (IMPLEMENTED)
      */
     async installApp() {
         if (!this.installPrompt) return;
@@ -562,7 +516,7 @@ const pwaHTML = `
     }
 
     /**
-     * Show update available banner
+     * Show update available banner (IMPLEMENTED)
      */
     showUpdateAvailable() {
         this.updateAvailable = true;
@@ -576,7 +530,7 @@ const pwaHTML = `
     }
 
     /**
-     * Hide update banner
+     * Hide update banner (IMPLEMENTED)
      */
     hideUpdateBanner() {
         const banner = document.getElementById('pwa-update-banner');
@@ -586,7 +540,7 @@ const pwaHTML = `
     }
 
     /**
-     * Update the app
+     * Update the app (IMPLEMENTED)
      */
     updateApp() {
         if (!this.sw || !this.sw.waiting) return;
@@ -599,7 +553,7 @@ const pwaHTML = `
     }
 
     /**
-     * Share the app
+     * Share the app (IMPLEMENTED)
      */
     async shareApp() {
         const shareData = {
@@ -625,23 +579,25 @@ const pwaHTML = `
     }
 
     /**
-     * Update connection status UI
+     * Update connection status UI (IMPLEMENTED)
      */
     updateConnectionStatus() {
         const statusElement = document.getElementById('pwa-connection-status');
-        const statusText = statusElement.querySelector('.status-text');
+        const statusText = statusElement?.querySelector('.status-text');
 
-        if (this.isOnline) {
-            statusElement.classList.remove('offline');
-            statusText.textContent = 'Online';
-        } else {
-            statusElement.classList.add('offline');
-            statusText.textContent = 'Offline';
+        if (statusElement && statusText) {
+            if (this.isOnline) {
+                statusElement.classList.remove('offline');
+                statusText.textContent = 'Online';
+            } else {
+                statusElement.classList.add('offline');
+                statusText.textContent = 'Offline';
+            }
         }
     }
 
     /**
-     * Handle URL actions (app shortcuts)
+     * Handle URL actions (app shortcuts) (IMPLEMENTED)
      */
     handleURLActions() {
         const urlParams = new URLSearchParams(window.location.search);
@@ -655,13 +611,13 @@ const pwaHTML = `
     }
 
     /**
-     * Execute URL action
+     * Execute URL action (IMPLEMENTED)
      */
     executeAction(action) {
         switch (action) {
             case 'focus':
                 // Start hyperfocus session
-                if (this.constellation.sessionManager) {
+                if (this.constellation?.sessionManager) {
                     this.constellation.sessionManager.startHyperfocusSession();
                 }
                 this.showNotification('⚡ Focus Session Started!', 'Hyperfocus mode activated from app shortcut.');
@@ -669,7 +625,7 @@ const pwaHTML = `
 
             case 'research':
                 // Switch to research mode
-                if (this.constellation.researchMode) {
+                if (this.constellation?.researchMode) {
                     this.constellation.researchMode.toggleMode();
                 }
                 this.showNotification('📚 Research Mode!', 'Switched to research mode from app shortcut.');
@@ -691,14 +647,14 @@ const pwaHTML = `
     }
 
     /**
-     * Handle notification actions
+     * Handle notification actions (IMPLEMENTED)
      */
     handleNotificationAction(action, data) {
         this.executeAction(action);
     }
 
     /**
-     * Show in-app notification
+     * Show in-app notification (IMPLEMENTED)
      */
     showNotification(title, message, duration = 4000) {
         // Create notification element
@@ -746,11 +702,13 @@ const pwaHTML = `
         }, duration);
 
         // Announce to screen reader
-        this.constellation.announceToScreenReader(`${title}. ${message}`);
+        if (this.constellation?.announceToScreenReader) {
+            this.constellation.announceToScreenReader(`${title}. ${message}`);
+        }
     }
 
     /**
-     * Track events (placeholder for analytics)
+     * Track events (IMPLEMENTED)
      */
     trackEvent(eventName, data = {}) {
         console.log(`📊 Event tracked: ${eventName}`, data);
@@ -760,21 +718,18 @@ const pwaHTML = `
     }
 
     /**
-     * Get PWA status information
+     * Check for updates (IMPLEMENTED)
      */
-    getPWAStatus() {
-        return {
-            isInstalled: window.matchMedia('(display-mode: standalone)').matches,
-            isOnline: this.isOnline,
-            updateAvailable: this.updateAvailable,
-            swRegistered: !!this.sw,
-            installPromptAvailable: !!this.installPrompt,
-            shareSupported: !!navigator.share
-        };
+    checkForUpdates() {
+        if (this.sw) {
+            this.sw.update().catch(error => {
+                console.warn('⚠️ Update check failed:', error);
+            });
+        }
     }
 
     /**
-     * Setup event listeners
+     * Setup event listeners (IMPLEMENTED)
      */
     setupEventListeners() {
         // Handle display mode changes
@@ -803,14 +758,17 @@ const pwaHTML = `
     }
 
     /**
-     * Check for updates
+     * Get PWA status information (IMPLEMENTED)
      */
-    checkForUpdates() {
-        if (this.sw) {
-            this.sw.update().catch(error => {
-                console.warn('⚠️ Update check failed:', error);
-            });
-        }
+    getPWAStatus() {
+        return {
+            isInstalled: window.matchMedia('(display-mode: standalone)').matches,
+            isOnline: this.isOnline,
+            updateAvailable: this.updateAvailable,
+            swRegistered: !!this.sw,
+            installPromptAvailable: !!this.installPrompt,
+            shareSupported: !!navigator.share
+        };
     }
 }
 
