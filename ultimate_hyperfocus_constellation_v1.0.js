@@ -123,24 +123,52 @@ class UltimateHyperfocusConstellation {
     /**
      * Initialize the constellation system
      */
-    async init() {
-        try {
-            await this.initializeThreeJS();
-            await this.loadRepositoryData();
-            this.createConstellation();
-            this.setupEventListeners();
-            this.setupAccessibilityFeatures();
-            this.startRenderLoop();
-            this.initializeAchievements();
-            this.hideLoadingScreen();
+async init() {
+  try {
+    await this.initializeThreeJS();
+    await this.yieldToMainThread();
 
-            this.announceToScreenReader('Ultimate Hyperfocus Constellation loaded. 37 repositories ready to explore.');
-            console.log('🌌 Constellation fully initialized!');
-        } catch (error) {
-            console.error('❌ Initialization error:', error);
-            this.showError('Failed to initialize constellation. Please refresh the page.');
-        }
-    }
+    await this.loadRepositoryData();
+    await this.yieldToMainThread();
+
+    await this.createConstellation();  // uses batches
+    await this.yieldToMainThread();
+
+    this.setupEventListeners();
+    await this.yieldToMainThread();
+
+    this.setupAccessibilityFeatures();
+    await this.yieldToMainThread();
+
+    this.startRenderLoop();
+    this.initializeAchievements();
+    this.hideLoadingScreen();
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+// Helpers:
+async yieldToMainThread() {
+  return new Promise(r => setTimeout(r, 0));
+}
+
+async createConstellation() {
+  const batchSize = 5;
+  for (let i = 0; i < this.repositories.length; i += batchSize) {
+    const batch = this.repositories.slice(i, i + batchSize);
+    batch.forEach((repo, idx) => {
+      const sphere = this.createRepositorySphere(repo, i + idx);
+      this.scene.add(sphere);
+      this.repositoryMeshes.push(sphere);
+    });
+    await this.yieldToMainThread();
+  }
+  await this.createConnections();
+  await this.yieldToMainThread();
+  this.createParticleField();
+}
+
 
     /**
      * Initialize Three.js scene, camera, and renderer (FIX: Medium Issue #2)

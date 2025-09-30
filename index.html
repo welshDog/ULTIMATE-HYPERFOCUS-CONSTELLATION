@@ -1205,11 +1205,34 @@ document.getElementById('settings-toggle').addEventListener('click', function() 
 
         console.log('🌌 Ultimate Hyperfocus Constellation UI initialized!');
         console.log('⌨️ Keyboard shortcuts: T (toggle mode), F (focus), S (session), ESC (close), / (search)');
-    </script>
+   <script>
+  let threeLoaded = false, threePromise;
+  async function loadThree() {
+    if (!threeLoaded) {
+      threePromise = import('https://cdn.jsdelivr.net/npm/three@0.157.0/build/three.module.js');
+      window.THREE = await threePromise;
+      threeLoaded = true;
+    }
+    return threePromise;
+  }
 
-    <!-- Load External JavaScript -->
-    <!-- The order is important for dependencies! -->
-   <script src="ultimate_hyperfocus_constellation_v1.0.js" type="module"></script>
+  async function initConstellation() {
+    await loadThree();
+    window.constellation = new UltimateHyperfocusConstellation();
+  }
+
+  const start = () => {
+    initConstellation();
+    document.removeEventListener('click', start);
+    document.removeEventListener('keydown', start);
+    document.removeEventListener('touchstart', start);
+  };
+  setTimeout(start, 2000);
+  document.addEventListener('click', start);
+  document.addEventListener('keydown', start);
+  document.addEventListener('touchstart', start);
+</script>
+
 <script src="github-api-manager_v1.0.js" type="module"></script>
 <script src="research-mode-manager_v1.0.js" type="module"></script>
 <script src="pwa-manager_v1.0.js" type="module"></script>
