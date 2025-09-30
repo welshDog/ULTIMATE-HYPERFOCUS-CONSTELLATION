@@ -129,55 +129,63 @@ class PWAManager {
         });
     }
 
-    /**
-     * Setup online/offline detection
-     */
-    setupOnlineOfflineDetection() {
-        window.addEventListener('online', () => {
-            this.isOnline = true;
-            this.showNotification('🌐 Back Online!', 'Connection restored. Syncing data...');
+   /**
+ * Setup online/offline detection
+ */
+setupOnlineOfflineDetection() {
+    window.addEventListener('online', () => {
+        this.isOnline = true;
+        this.showNotification('🌐 Back Online!', 'Connection restored. Syncing data...');
 
-            // Trigger background sync
-            if (this.sw && this.sw.sync) {
+        // Trigger background sync safely
+        if (this.sw && 'sync' in this.sw) {
+            try {
                 this.sw.sync.register('github-data-sync');
                 this.sw.sync.register('analytics-sync');
+            } catch (err) {
+                console.warn('Background sync registration failed:', err);
             }
+        }
 
-            this.updateConnectionStatus();
-        });
-
-        window.addEventListener('offline', () => {
-            this.isOnline = false;
-            this.showNotification('📱 Offline Mode', 'You're now offline. Cached content is still available.');
-
-            this.updateConnectionStatus();
-        });
-
-        // Initial status
         this.updateConnectionStatus();
+        if (this.constellation?.announceToScreenReader) {
+            this.constellation.announceToScreenReader('Internet connection restored. All features available.');
+        }
+    });
+
+    window.addEventListener('offline', () => {
+        this.isOnline = false;
+        this.showNotification('📱 Offline Mode', "You're now offline. Cached content is still available.");
+
+        this.updateConnectionStatus(); // ❌ REMOVE the "arg1, arg2"
+        if (this.constellation?.announceToScreenReader) {
+            this.constellation.announceToScreenReader('Internet connection lost. Working in offline mode.');
+        }
+    });
+
+    // Initial status update
+    this.updateConnectionStatus();
+}
+
     }
 
     /**
      * Create PWA UI elements
      */
-    createPWAUI() {
-        const pwaHTML = `
-            <!-- Install Button -->
-            <div id="pwa-install-container" class="pwa-install-container" style="display: none;">
-                <div class="install-prompt">
-                    <div class="install-content">
-                        <div class="install-icon">📱</div>
-                        <div class="install-text">
-                            <h3>Install Constellation</h3>
-                            <p>Add to your home screen for a better experience!</p>
-                        </div>
-                    </div>
-                    <div class="install-actions">
-                        <button id="pwa-install-btn" class="install-btn">Install</button>
-                        <button id="pwa-install-dismiss" class="install-dismiss">Not now</button>
-                    </div>
+const pwaHTML = `
+    <!-- Install Button -->
+    <div id="pwa-install-container" class="pwa-install-container" style="display: none;">
+        <div class="install-prompt">
+            <div class="install-content">
+                <div class="install-icon">📱</div>
+                <div class="install-text">
+                    <h3>Install Constellation</h3>
+                    <p>Add to your home screen for a better experience!</p>
                 </div>
             </div>
+        </div>
+    </div>
+`;
 
             <!-- Update Banner -->
             <div id="pwa-update-banner" class="pwa-update-banner" style="display: none;">
