@@ -1,3 +1,6 @@
+```javascript
+// Make sure THREE.js is available
+const THREE = window.THREE;
 /**
  * 🌌 Ultimate Hyperfocus Constellation - 3D Engine (PRODUCTION FIXED VERSION)
  * The world's most advanced neurodivergent-friendly repository visualization
