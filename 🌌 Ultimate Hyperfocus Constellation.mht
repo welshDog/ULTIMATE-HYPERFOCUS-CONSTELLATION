@@ -1,0 +1,427 @@
+From: <Saved by Blink>
+Snapshot-Content-Location: https://ppl-ai-code-interpreter-files.s3.amazonaws.com/web/direct-files/649c444b9bd96d22455e0aa938a39ef3/8259257a-ac45-4389-bc66-3ad803bba6ad/0eb54730.html?rnd=1759940857897&utm_source=perplexity
+Subject: =?utf-8?Q?=F0=9F=8C=8C=20Ultimate=20Hyperfocus=20Constellation?=
+Date: Wed, 8 Oct 2025 17:27:42 +0100
+MIME-Version: 1.0
+Content-Type: multipart/related;
+	type="text/html";
+	boundary="----MultipartBoundary--lR1X6N3F02xZRcOTOyUXHdjlT6RrgYbAdRrv6hm3FE----"
+
+
+------MultipartBoundary--lR1X6N3F02xZRcOTOyUXHdjlT6RrgYbAdRrv6hm3FE----
+Content-Type: text/html
+Content-ID: <frame-47F9EB0512E789EF25A3E8D0B1AC21F5@mhtml.blink>
+Content-Transfer-Encoding: binary
+Content-Location: https://ppl-ai-code-interpreter-files.s3.amazonaws.com/web/direct-files/649c444b9bd96d22455e0aa938a39ef3/8259257a-ac45-4389-bc66-3ad803bba6ad/0eb54730.html?rnd=1759940857897&utm_source=perplexity
+
+<!DOCTYPE html><html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌌 Ultimate Hyperfocus Constellation</title>
+    <meta name="description" content="Interactive 3D repository visualization designed for neurodivergent developers with ADHD-friendly hyperfocus features">
+    <link rel="stylesheet" href="https://ppl-ai-code-interpreter-files.s3.amazonaws.com/web/direct-files/649c444b9bd96d22455e0aa938a39ef3/8259257a-ac45-4389-bc66-3ad803bba6ad/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <div class="constellation-logo">
+                <div class="logo-stars">
+                    <span class="star">✨</span>
+                    <span class="star">🌟</span>
+                    <span class="star">⭐</span>
+                </div>
+                <h1>🌌 Ultimate Hyperfocus Constellation</h1>
+            </div>
+            <div class="loading-spinner"></div>
+            <p class="loading-text">🌟 Mapping repositories to stars...</p>
+            <div class="loading-progress">
+                <div class="loading-bar"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main 3D Canvas -->
+    <canvas id="constellation-canvas" tabindex="0" role="application" aria-label="Interactive 3D repository constellation. Use arrow keys to navigate, Enter to select."></canvas>
+    
+    <!-- Focus Overlay for Hyperfocus Mode -->
+    <div id="focus-overlay" class="focus-overlay"></div>
+
+    <!-- Top Navigation Bar -->
+    <header class="top-nav">
+        <div class="nav-left">
+            <div class="logo">
+                <span class="logo-icon">🌌</span>
+                <span class="logo-text">Ultimate Hyperfocus Constellation</span>
+            </div>
+        </div>
+        
+        <div class="nav-center">
+            <!-- Search -->
+            <div class="search-container">
+                <input id="search-input" type="text" placeholder="🔍 Search repositories..." aria-label="Search repositories">
+            </div>
+        </div>
+
+        <div class="nav-right">
+            <button id="mode-toggle" class="nav-button" aria-label="Toggle research mode">
+                📚 Research Mode
+            </button>
+            <button id="focus-toggle" class="nav-button" aria-label="Toggle focus mode">
+                🎯 Focus
+            </button>
+            <button id="settings-toggle" class="nav-button" aria-label="Open settings">
+                ⚙️ Settings
+            </button>
+        </div>
+    </header>
+
+    <!-- Repository Categories Sidebar -->
+    <aside class="categories-sidebar">
+        <h3>🗂️ Repository Categories</h3>
+        
+        <div class="category-item active" data-category="all">
+            <span class="category-icon">🌟</span>
+            <span class="category-name">All Repositories</span>
+            <span class="category-count">37</span>
+        </div>
+        
+        <div class="category-item" data-category="core">
+            <span class="category-icon">🏰</span>
+            <span class="category-name">Core Empire</span>
+            <span class="category-count">6</span>
+        </div>
+        
+        <div class="category-item" data-category="visual">
+            <span class="category-icon">✨</span>
+            <span class="category-name">Visual Magic</span>
+            <span class="category-count">4</span>
+        </div>
+        
+        <div class="category-item" data-category="brain">
+            <span class="category-icon">🧠</span>
+            <span class="category-name">Brain Games</span>
+            <span class="category-count">2</span>
+        </div>
+        
+        <div class="category-item" data-category="social">
+            <span class="category-icon">🌐</span>
+            <span class="category-name">Social Nexus</span>
+            <span class="category-count">5</span>
+        </div>
+        
+        <div class="category-item" data-category="accessibility">
+            <span class="category-icon">♿</span>
+            <span class="category-name">Accessibility Arsenal</span>
+            <span class="category-count">3</span>
+        </div>
+        
+        <div class="category-item" data-category="creative">
+            <span class="category-icon">🎨</span>
+            <span class="category-name">Creative Lab</span>
+            <span class="category-count">3</span>
+        </div>
+        
+        <div class="category-item" data-category="dev-tools">
+            <span class="category-icon">🛠️</span>
+            <span class="category-name">Dev Tools</span>
+            <span class="category-count">4</span>
+        </div>
+        
+        <div class="category-item" data-category="portal">
+            <span class="category-icon">🚪</span>
+            <span class="category-name">Portal Network</span>
+            <span class="category-count">4</span>
+        </div>
+        
+        <div class="category-item" data-category="hardware">
+            <span class="category-icon">🔧</span>
+            <span class="category-name">Hardware Interface</span>
+            <span class="category-count">1</span>
+        </div>
+        
+        <div class="category-item" data-category="research">
+            <span class="category-icon">🔬</span>
+            <span class="category-name">Research Lab</span>
+            <span class="category-count">4</span>
+        </div>
+    </aside>
+
+    <!-- Accessibility Settings Panel -->
+    <div id="accessibility-panel" class="side-panel hidden">
+        <div class="panel-header">
+            <h3>♿ Accessibility Settings</h3>
+            <button class="panel-close" aria-label="Close accessibility panel">✕</button>
+        </div>
+        
+        <div class="panel-content">
+            <!-- Focus & Motion Controls -->
+            <div class="control-group">
+                <h4>🎯 Focus &amp; Motion</h4>
+                <label class="control-label">
+                    <input id="reduce-motion" type="checkbox" aria-describedby="reduce-motion-desc">
+                    <span class="control-text">🐌 Reduce Motion</span>
+                </label>
+                <p id="reduce-motion-desc" class="control-description">Minimizes animations for users sensitive to motion</p>
+                
+                <label class="control-label">
+                    <input id="focus-mode" type="checkbox" aria-describedby="focus-mode-desc">
+                    <span class="control-text">🎯 Focus Mode</span>
+                </label>
+                <p id="focus-mode-desc" class="control-description">Reduces visual distractions for better concentration</p>
+            </div>
+            
+            <!-- Visual Controls -->
+            <div class="control-group">
+                <h4>🎨 Visual</h4>
+                <label class="control-label">
+                    <input id="high-contrast" type="checkbox" aria-describedby="high-contrast-desc">
+                    <span class="control-text">🌓 High Contrast</span>
+                </label>
+                <p id="high-contrast-desc" class="control-description">Increases contrast for better visibility</p>
+                
+                <label class="control-label">
+                    <input type="checkbox">
+                    <span class="control-text">🔊 Spatial Audio</span>
+                </label>
+            </div>
+            
+            <!-- Audio Controls -->
+            <div class="control-group">
+                <h4>🔊 Audio Controls</h4>
+                <div class="audio-control">
+                    <label for="ambient-volume">🎵 Ambient: <span id="ambient-value">50%</span></label>
+                    <input id="ambient-volume" type="range" min="0" max="100" value="50" aria-label="Ambient audio volume">
+                </div>
+                
+                <div class="audio-control">
+                    <label for="effects-volume">🔊 Effects: <span id="effects-value">30%</span></label>
+                    <input id="effects-volume" type="range" min="0" max="100" value="30" aria-label="Sound effects volume">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hyperfocus Session Panel -->
+    <div class="hyperfocus-panel">
+        <h3>⚡ Hyperfocus Session</h3>
+        <div class="session-timer">
+            <span id="session-timer">00:00:00</span>
+        </div>
+        <button id="session-toggle" class="session-button" aria-label="Start hyperfocus session">
+            🚀 Start Session
+        </button>
+        <div id="focus-status" class="focus-status">Ready for hyperfocus exploration</div>
+        <div class="session-progress">
+            <div id="focus-progress" class="progress-fill"></div>
+        </div>
+    </div>
+
+    <!-- Stats Panel -->
+    <div class="stats-panel">
+        <h3>📊 Exploration Progress</h3>
+        
+        <div class="stat-item">
+            <span class="stat-label">Repositories Visited</span>
+            <span id="repos-visited" class="stat-value">0/37</span>
+        </div>
+        
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div id="exploration-progress" class="progress-fill"></div>
+            </div>
+        </div>
+        
+        <div class="stat-row">
+            <div class="stat-item">
+                <span class="stat-icon">⭐</span>
+                <span id="total-stars" class="stat-number">0</span>
+                <span class="stat-text">stars collected</span>
+            </div>
+            
+            <div class="stat-item">
+                <span class="stat-icon">🔥</span>
+                <span class="stat-number">0</span>
+                <span class="stat-text">day streak</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Achievements Panel -->
+    <div class="achievements-panel">
+        <h3>🏆 Achievements</h3>
+        
+        <div id="achievement-first-explorer" class="achievement">
+            <span class="achievement-icon">🎯</span>
+            <span class="achievement-name">First Explorer</span>
+        </div>
+        
+        <div id="achievement-navigator" class="achievement">
+            <span class="achievement-icon">🧭</span>
+            <span class="achievement-name">Navigator</span>
+        </div>
+        
+        <div id="achievement-seeker" class="achievement">
+            <span class="achievement-icon">📚</span>
+            <span class="achievement-name">Knowledge Seeker</span>
+        </div>
+        
+        <div id="achievement-master" class="achievement">
+            <span class="achievement-icon">🌟</span>
+            <span class="achievement-name">Constellation Master</span>
+        </div>
+        
+        <div id="achievement-ultimate" class="achievement">
+            <span class="achievement-icon">👑</span>
+            <span class="achievement-name">Ultimate Explorer</span>
+        </div>
+    </div>
+
+    <!-- Repository Details Modal -->
+    <div id="repo-details" class="repo-details">
+        <div class="panel-header">
+            <h2 id="repo-title">Repository Name</h2>
+            <button class="panel-close" aria-label="Close repository details">✕</button>
+        </div>
+        
+        <div class="repo-stats">
+            <div class="stat">
+                <span class="stat-icon">⭐</span>
+                <span id="repo-stars" class="stat-value">0</span>
+            </div>
+            <div class="stat">
+                <span class="stat-icon">🍴</span>
+                <span id="repo-forks" class="stat-value">0</span>
+            </div>
+            <div class="stat">
+                <span class="stat-icon">📅</span>
+                <span id="repo-updated" class="stat-value">Last updated</span>
+            </div>
+            <div class="stat">
+                <span class="stat-icon">💻</span>
+                <span id="repo-language" class="stat-value">Language</span>
+            </div>
+        </div>
+        
+        <div class="repo-content">
+            <p id="repo-description" class="repo-description">
+                Repository description will appear here.
+            </p>
+            
+            <div class="repo-actions">
+                <a id="repo-github-link" href="https://ppl-ai-code-interpreter-files.s3.amazonaws.com/web/direct-files/649c444b9bd96d22455e0aa938a39ef3/8259257a-ac45-4389-bc66-3ad803bba6ad/0eb54730.html?rnd=1759940857897&amp;utm_source=perplexity#" target="_blank" class="action-button primary" rel="noopener noreferrer">
+                    🔗 View on GitHub
+                </a>
+                <button class="action-button secondary">
+                    🌐 Live Demo
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Keyboard Navigation Help -->
+    <div class="keyboard-help">
+        <details>
+            <summary>⌨️ Keyboard Shortcuts</summary>
+            <ul>
+                <li><kbd>←</kbd> <kbd>→</kbd> Navigate repositories</li>
+                <li><kbd>Enter</kbd> <kbd>Space</kbd> Select repository</li>
+                <li><kbd>Escape</kbd> Close panels</li>
+                <li><kbd>R</kbd> Random repository</li>
+                <li><kbd>/</kbd> Focus search</li>
+                <li><kbd>T</kbd> Toggle mode</li>
+                <li><kbd>F</kbd> Toggle focus</li>
+                <li><kbd>S</kbd> Start session</li>
+            </ul>
+        </details>
+    </div>
+
+    <!-- Screen Reader Announcements -->
+    <div id="constellation-announcements" aria-live="polite" aria-atomic="true" class="sr-only">
+        <!-- Dynamic announcements for screen readers -->
+    </div>
+
+    <!-- Scripts -->
+    
+    
+    <!-- Your constellation engine (put your JS code here) -->
+    
+    
+    <!-- UI interactions script -->
+    
+
+</body></html>
+------MultipartBoundary--lR1X6N3F02xZRcOTOyUXHdjlT6RrgYbAdRrv6hm3FE----
+Content-Type: text/css
+Content-Transfer-Encoding: binary
+Content-Location: https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap
+
+@charset "utf-8";
+
+@font-face { font-family: Inter; font-style: normal; font-weight: 400; font-display: swap; src: url("https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2JL7W0Q5n-wU.woff2") format("woff2"); unicode-range: U+460-52F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F; }
+
+@font-face { font-family: Inter; font-style: normal; font-weight: 400; font-display: swap; src: url("https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa0ZL7W0Q5n-wU.woff2") format("woff2"); unicode-range: U+301, U+400-45F, U+490-491, U+4B0-4B1, U+2116; }
+
+@font-face { font-family: Inter; font-style: normal; font-weight: 400; font-display: swap; src: url("https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2ZL7W0Q5n-wU.woff2") format("woff2"); unicode-range: U+1F00-1FFF; }
+
+@font-face { font-family: Inter; font-style: normal; font-weight: 400; font-display: swap; src: url("https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1pL7W0Q5n-wU.woff2") format("woff2"); unicode-range: U+370-377, U+37A-37F, U+384-38A, U+38C, U+38E-3A1, U+3A3-3FF; }
+
+@font-face { font-family: Inter; font-style: normal; font-weight: 400; font-display: swap; src: url("https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2pL7W0Q5n-wU.woff2") format("woff2"); unicode-range: U+102-103, U+110-111, U+128-129, U+168-169, U+1A0-1A1, U+1AF-1B0, U+300-301, U+303-304, U+308-309, U+323, U+329, U+1EA0-1EF9, U+20AB; }
+
+@font-face { font-family: Inter; font-style: normal; font-weight: 400; font-display: swap; src: url("https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa25L7W0Q5n-wU.woff2") format("woff2"); unicode-range: U+100-2BA, U+2BD-2C5, U+2C7-2CC, U+2CE-2D7, U+2DD-2FF, U+304, U+308, U+329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+
+@font-face { font-family: Inter; font-style: normal; font-weight: 400; font-display: swap; src: url("https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2") format("woff2"); unicode-range: U+0-FF, U+131, U+152-153, U+2BB-2BC, U+2C6, U+2DA, U+2DC, U+304, U+308, U+329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+
+@font-face { font-family: Inter; font-style: normal; font-weight: 500; font-display: swap; src: url("https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2JL7W0Q5n-wU.woff2") format("woff2"); unicode-range: U+460-52F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F; }
+
+@font-face { font-family: Inter; font-style: normal; font-weight: 500; font-display: swap; src: url("https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa0ZL7W0Q5n-wU.woff2") format("woff2"); unicode-range: U+301, U+400-45F, U+490-491, U+4B0-4B1, U+2116; }
+
+@font-face { font-family: Inter; font-style: normal; font-weight: 500; font-display: swap; src: url("https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2ZL7W0Q5n-wU.woff2") format("woff2"); unicode-range: U+1F00-1FFF; }
+
+@font-face { font-family: Inter; font-style: normal; font-weight: 500; font-display: swap; src: url("https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1pL7W0Q5n-wU.woff2") format("woff2"); unicode-range: U+370-377, U+37A-37F, U+384-38A, U+38C, U+38E-3A1, U+3A3-3FF; }
+
+@font-face { font-family: Inter; font-style: normal; font-weight: 500; font-display: swap; src: url("https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2pL7W0Q5n-wU.woff2") format("woff2"); unicode-range: U+102-103, U+110-111, U+128-129, U+168-169, U+1A0-1A1, U+1AF-1B0, U+300-301, U+303-304, U+308-309, U+323, U+329, U+1EA0-1EF9, U+20AB; }
+
+@font-face { font-family: Inter; font-style: normal; font-weight: 500; font-display: swap; src: url("https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa25L7W0Q5n-wU.woff2") format("woff2"); unicode-range: U+100-2BA, U+2BD-2C5, U+2C7-2CC, U+2CE-2D7, U+2DD-2FF, U+304, U+308, U+329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+
+@font-face { font-family: Inter; font-style: normal; font-weight: 500; font-display: swap; src: url("https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2") format("woff2"); unicode-range: U+0-FF, U+131, U+152-153, U+2BB-2BC, U+2C6, U+2DA, U+2DC, U+304, U+308, U+329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+
+@font-face { font-family: Inter; font-style: normal; font-weight: 600; font-display: swap; src: url("https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2JL7W0Q5n-wU.woff2") format("woff2"); unicode-range: U+460-52F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F; }
+
+@font-face { font-family: Inter; font-style: normal; font-weight: 600; font-display: swap; src: url("https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa0ZL7W0Q5n-wU.woff2") format("woff2"); unicode-range: U+301, U+400-45F, U+490-491, U+4B0-4B1, U+2116; }
+
+@font-face { font-family: Inter; font-style: normal; font-weight: 600; font-display: swap; src: url("https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2ZL7W0Q5n-wU.woff2") format("woff2"); unicode-range: U+1F00-1FFF; }
+
+@font-face { font-family: Inter; font-style: normal; font-weight: 600; font-display: swap; src: url("https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1pL7W0Q5n-wU.woff2") format("woff2"); unicode-range: U+370-377, U+37A-37F, U+384-38A, U+38C, U+38E-3A1, U+3A3-3FF; }
+
+@font-face { font-family: Inter; font-style: normal; font-weight: 600; font-display: swap; src: url("https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2pL7W0Q5n-wU.woff2") format("woff2"); unicode-range: U+102-103, U+110-111, U+128-129, U+168-169, U+1A0-1A1, U+1AF-1B0, U+300-301, U+303-304, U+308-309, U+323, U+329, U+1EA0-1EF9, U+20AB; }
+
+@font-face { font-family: Inter; font-style: normal; font-weight: 600; font-display: swap; src: url("https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa25L7W0Q5n-wU.woff2") format("woff2"); unicode-range: U+100-2BA, U+2BD-2C5, U+2C7-2CC, U+2CE-2D7, U+2DD-2FF, U+304, U+308, U+329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+
+@font-face { font-family: Inter; font-style: normal; font-weight: 600; font-display: swap; src: url("https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2") format("woff2"); unicode-range: U+0-FF, U+131, U+152-153, U+2BB-2BC, U+2C6, U+2DA, U+2DC, U+304, U+308, U+329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+
+@font-face { font-family: Inter; font-style: normal; font-weight: 700; font-display: swap; src: url("https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2JL7W0Q5n-wU.woff2") format("woff2"); unicode-range: U+460-52F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F; }
+
+@font-face { font-family: Inter; font-style: normal; font-weight: 700; font-display: swap; src: url("https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa0ZL7W0Q5n-wU.woff2") format("woff2"); unicode-range: U+301, U+400-45F, U+490-491, U+4B0-4B1, U+2116; }
+
+@font-face { font-family: Inter; font-style: normal; font-weight: 700; font-display: swap; src: url("https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2ZL7W0Q5n-wU.woff2") format("woff2"); unicode-range: U+1F00-1FFF; }
+
+@font-face { font-family: Inter; font-style: normal; font-weight: 700; font-display: swap; src: url("https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1pL7W0Q5n-wU.woff2") format("woff2"); unicode-range: U+370-377, U+37A-37F, U+384-38A, U+38C, U+38E-3A1, U+3A3-3FF; }
+
+@font-face { font-family: Inter; font-style: normal; font-weight: 700; font-display: swap; src: url("https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2pL7W0Q5n-wU.woff2") format("woff2"); unicode-range: U+102-103, U+110-111, U+128-129, U+168-169, U+1A0-1A1, U+1AF-1B0, U+300-301, U+303-304, U+308-309, U+323, U+329, U+1EA0-1EF9, U+20AB; }
+
+@font-face { font-family: Inter; font-style: normal; font-weight: 700; font-display: swap; src: url("https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa25L7W0Q5n-wU.woff2") format("woff2"); unicode-range: U+100-2BA, U+2BD-2C5, U+2C7-2CC, U+2CE-2D7, U+2DD-2FF, U+304, U+308, U+329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+
+@font-face { font-family: Inter; font-style: normal; font-weight: 700; font-display: swap; src: url("https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2") format("woff2"); unicode-range: U+0-FF, U+131, U+152-153, U+2BB-2BC, U+2C6, U+2DA, U+2DC, U+304, U+308, U+329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+------MultipartBoundary--lR1X6N3F02xZRcOTOyUXHdjlT6RrgYbAdRrv6hm3FE----
+Content-Type: text/css
+Content-Transfer-Encoding: binary
+Content-Location: https://ppl-ai-code-interpreter-files.s3.amazonaws.com/web/direct-files/649c444b9bd96d22455e0aa938a39ef3/8259257a-ac45-4389-bc66-3ad803bba6ad/styles.css
+
+@charset "utf-8";
+
+
+------MultipartBoundary--lR1X6N3F02xZRcOTOyUXHdjlT6RrgYbAdRrv6hm3FE------
