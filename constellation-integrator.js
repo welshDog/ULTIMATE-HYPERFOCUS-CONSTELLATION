@@ -221,6 +221,15 @@ class ConstellationIntegrator {
             this.modules.constellation.selectRepository = async (repository) => {
                 // Call original selection
                 originalSelectRepository.call(this.modules.constellation, repository);
+const researchModeManager = new ResearchModeManager(constellation);
+const testRepository = {
+  id: 'test-repo',
+  name: 'Test Repository',
+  description: 'This is a test repository',
+  // Add any other properties you want to test with
+};
+
+researchModeManager.selectRepository(testRepository);
 
                 // Fetch enhanced details
                 try {
