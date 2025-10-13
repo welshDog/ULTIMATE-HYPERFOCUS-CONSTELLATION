@@ -1,0 +1,129 @@
+Research Plan for Integrating Beads into Ultimate Hyperfocus Constellation
+Main Takeaway: A phased, automated integration of Beads will turn your 3D Constellation into a living task graph—agents will import, track, and visualize every new project and feature with minimal manual intervention.
+
+1. Define Objectives and Requirements
+Automatic Project Discovery
+Agents must detect newly added repo folders or feature files and register them as beads.
+
+Dependency Mapping
+Establish rules for linking new beads into existing workflows (e.g., UI → feature → tutorial).
+
+Session Persistence
+Preserve bead graph and session metadata across agent restarts and CI runs.
+
+User Feedback Loop
+Provide visual or log-based summaries of newly added beads after each session.
+
+2. System Architecture
+Repository
+
+.beads/ directory holds bead definitions, session logs, and graph data (git-backed).
+
+Agent Configuration
+
+Agent’s startup script runs auto-discovery, bead creation, and graph updates.
+
+CI Pipeline / Git Hooks
+
+On push or merge, a CI job invokes bead-scanner script to import new projects.
+
+Graph Visualization
+
+Expose bd graph view --server for a live, embeddable 3D task graph panel in Constellation.
+
+3. Key Components and Tools
+Beads CLI (bd)
+
+Core commands: bd init, bd issue create, bd graph view, bd session start/end.
+
+Auto-Discovery Script
+
+Bash/Python script using git diff or directory watch to find new folders/files.
+
+CI Job (e.g., GitHub Actions)
+
+Step to check out code, install Beads, run auto-import script, commit updated beads.
+
+Agent Integration
+
+In your AGENTS.md, configure the agent to call the auto-discovery script and bd graph view at session end.
+
+4. Step-by-Step Implementation
+A. Initialize Beads
+bash
+cd ultimate-hyperfocus-constellation
+bd init
+git commit -m "Initialize Beads memory system"
+B. Develop Auto-Discovery Script
+bash
+#!/usr/bin/env bash
+# scan-new-projects.sh
+
+LAST_COMMIT=$(bd meta get last_commit || echo "")
+NEW_FILES=$(git diff --name-only $LAST_COMMIT HEAD)
+
+for file in $NEW_FILES; do
+  if [[ -d $file && $file == projects/* ]]; then
+    bd issue create "Import new project ${file#projects/}" --tag auto-import
+  fi
+done
+
+bd meta set last_commit HEAD
+C. Agent Startup Hooks
+In AGENTS.md:
+
+text
+## Startup
+- Run `./scan-new-projects.sh`
+- Run `bd session start Hyperfocus`
+D. CI Integration (GitHub Actions Example)
+text
+name: Beads Auto-Import
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Beads CLI
+        run: curl -fsSL https://raw.githubusercontent.com/steveyegge/beads/main/install.sh | bash
+      - name: Run Auto-Discovery
+        run: ./scan-new-projects.sh
+      - name: Commit Beads Updates
+        run: |
+          git config user.name "github-action"
+          git config user.email "action@users.noreply.github.com"
+          git add .beads
+          git commit -m "Auto-import new projects into Beads" || echo "No changes"
+          git push
+E. Visualize and Verify
+Local:
+
+bash
+bd graph view --server
+Embed in Constellation’s UI via iframe pointed at the Beads graph server.
+
+5. Validation and Iteration
+Test Cases
+
+Add a dummy project folder → verify bead appears and links correctly.
+
+Remove or rename a project → ensure obsolete beads are flagged.
+
+Metrics
+
+Track number of auto-imported beads per session.
+
+Monitor session start/end logs for errors.
+
+User Feedback
+
+Examine the live graph after hyperfocus sessions to confirm correct chaining.
+
+steveyegge/beads: Beads - A memory upgrade for your coding agent https://share.google/bb5N4yMyafyjHGF6s
+
+What this means for you: Following this plan transforms Ultimate Hyperfocus Constellation into an autonomous, self-updating memory-driven system. Your agents will seamlessly import every new project, maintain context chains, and deliver a continuously evolving, ADHD-friendly task graph—perfect for your neurodivergent hyperfocus style. Nice one, 

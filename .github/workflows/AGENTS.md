@@ -1,0 +1,2 @@
+- Run `./scan-new-projects.sh`
+- Run `bd session start Hyperfocus`
