@@ -51,8 +51,8 @@ for file in $NEW_FILES; do
     if [[ -d "$file" && $file == projects/* ]]; then
         PROJECT_NAME="${file#projects/}"
         
-        # Skip if the directory is empty or just contains hidden files
-        if [ -z "$(ls -A "$file" 2>/dev/null | grep -v '^\.')" ]; then
+        # Skip if the directory is empty (no files/directories except . and ..)
+        if ! find "$file" -mindepth 1 -maxdepth 1 -not -name '.' -not -name '..' -print -quit 2>/dev/null | grep -q .; then
             log "Skipping empty project directory: $PROJECT_NAME"
             continue
         fi
